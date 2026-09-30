@@ -25,24 +25,24 @@ export default function Services() {
         <Link to="/contact" className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3.5 rounded-lg transition-colors">
           Contact Us
         </Link>{" "}
-        <Link to="/portfolio" className="inline-block bg-white text-ink border border-border-input font-semibold px-6 py-3.5 rounded-lg hover:bg-bg-alt transition-colors">
+        <Link to="/portfolio" className="inline-block bg-white text-ink border border-border-input font-semibold px-6 py-3.5 rounded-lg hover:bg-bg-alt transition-colors mt-3 sm:mt-0">
           View Portfolio
         </Link>
       </PageHero>
 
-      <section className="py-20">
-        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-6 gap-6">
+      <section className="py-14 sm:py-20">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-6">
           {services.map((s, i) => (
             <div
               key={s.n}
-              className={`bg-white border border-border-light rounded-[10px] p-8 shadow-[0_10px_30px_rgba(47,84,255,.06)] transition-transform hover:-translate-y-1 ${spanClass[i]}`}
+              className={`bg-white border border-border-light rounded-[10px] p-6 sm:p-8 shadow-[0_10px_30px_rgba(47,84,255,.06)] transition-transform hover:-translate-y-1 md:max-lg:last:col-span-2 ${spanClass[i]}`}
             >
               <span className="inline-block bg-tint-blue-bg text-primary font-semibold px-3 py-2 rounded-lg mb-4 text-sm">
                 {s.n}
               </span>
 
-              <h3 className="text-[22px] font-bold mb-2.5 font-display text-ink">{s.t}</h3>
-              <p className="text-muted text-[15px]">{s.d}</p>
+              <h3 className="text-[19px] sm:text-[22px] font-bold mb-2.5 font-display text-ink">{s.t}</h3>
+              <p className="text-muted text-[14px] sm:text-[15px]">{s.d}</p>
 
               <ul className="mt-4 space-y-1.5">
                 {s.p.map((x) => (
@@ -63,27 +63,27 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="py-20 text-center bg-bg-alt">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <span className="inline-flex items-center gap-2.5 border border-border-light bg-white px-4 py-2 rounded-md text-[12px] tracking-[.2em] font-semibold text-muted uppercase before:content-[''] before:w-[22px] before:h-[2px] before:bg-primary">
+      <section className="py-14 sm:py-20 text-center bg-bg-alt">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <span className="inline-flex items-center gap-2.5 border border-border-light bg-white px-3.5 sm:px-4 py-2 rounded-md text-[10px] sm:text-[12px] tracking-[.15em] sm:tracking-[.2em] font-semibold text-muted uppercase before:content-[''] before:w-[22px] before:h-[2px] before:bg-primary">
             Our powerful features
           </span>
 
-          <h2 className="text-[40px] font-extrabold mt-4 mb-3 text-ink">
+          <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] font-extrabold leading-[1.15] mt-4 mb-3 text-ink">
             What every project <span className="text-accent">includes</span>
           </h2>
 
-          <p className="text-muted max-w-[620px] mx-auto mb-10">
+          <p className="text-muted text-[14px] sm:text-base max-w-[620px] mx-auto mb-8 sm:mb-10">
             Development teams rely on our software to streamline workflows, gain actionable
             insights, and accelerate delivery while providing exceptional user experiences.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left">
             {includes.map(([n, t, d]) => (
-              <div key={n} className="bg-white border border-border-light rounded-[10px] p-8 shadow-[0_10px_30px_rgba(47,84,255,.06)]">
+              <div key={n} className="bg-white border border-border-light rounded-[10px] p-6 sm:p-8 shadow-[0_10px_30px_rgba(47,84,255,.06)]">
                 <small className="text-accent font-semibold">{n}</small>
-                <h3 className="text-[22px] font-bold mt-2.5 mb-2.5 font-display text-ink">{t}</h3>
-                <p className="text-muted text-[15px]">{d}</p>
+                <h3 className="text-[19px] sm:text-[22px] font-bold mt-2.5 mb-2.5 font-display text-ink">{t}</h3>
+                <p className="text-muted text-[14px] sm:text-[15px]">{d}</p>
               </div>
             ))}
           </div>

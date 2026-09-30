@@ -64,8 +64,8 @@ const FEATURED_INDEX = 1;
 
 /* ---------------- HELPERS ---------------- */
 const SectionTag = ({ children }) => (
-  <span className="inline-flex items-center gap-3 bg-border-soft px-4 py-2 rounded-full text-[11px] font-semibold tracking-[.2em] uppercase text-muted">
-    <span className="w-6 h-0.5 rounded bg-gradient-to-r from-pink via-violet to-primary" />
+  <span className="inline-flex items-center gap-2.5 sm:gap-3 bg-border-soft px-3.5 sm:px-4 py-2 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-[.15em] sm:tracking-[.2em] uppercase text-muted">
+    <span className="w-5 sm:w-6 h-0.5 rounded bg-gradient-to-r from-pink via-violet to-primary" />
     {children}
   </span>
 );
@@ -95,21 +95,21 @@ export default function About() {
       </PageHero>
 
       {/* ===== INTRO ===== */}
-      <section className="relative py-20 overflow-hidden bg-bg-alt">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid lg:grid-cols-[1.05fr_1fr] gap-15 items-center">
+      <section className="relative py-14 sm:py-20 overflow-hidden bg-bg-alt">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-15 items-center">
             <div>
               <SectionTag>About Us</SectionTag>
-              <h2 className="text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
+              <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
                 Transforming Ideas into <GradientHeading>Results</GradientHeading>
               </h2>
-              <p className="mt-6 text-muted text-[15px] leading-[1.8]">
+              <p className="mt-5 sm:mt-6 text-muted text-[14px] sm:text-[15px] leading-[1.8]">
                 Our solutions enable software teams to simplify processes, improve
                 decision-making, and increase efficiency, all while creating outstanding
                 experiences. Drive innovation and bring your projects to market faster
                 than ever before.
               </p>
-              <p className="mt-4 text-muted text-[15px] leading-[1.8]">
+              <p className="mt-4 text-muted text-[14px] sm:text-[15px] leading-[1.8]">
                 CODE AXIS TEAM teams rely on our software to streamline development
                 workflows, enhance insights, and accelerate innovation while delivering
                 exceptional user experiences. Deploy your projects faster to stay ahead
@@ -117,14 +117,14 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5">
               {introStats.map((s) => (
                 <div
                   key={s.l}
-                  className="bg-white border border-border-light rounded-2xl px-6 py-7 shadow-[0_10px_30px_rgba(47,84,255,.06)] text-left transition-transform hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]"
+                  className="bg-white border border-border-light rounded-2xl px-4 sm:px-6 py-5 sm:py-7 shadow-[0_10px_30px_rgba(47,84,255,.06)] text-left transition-transform hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]"
                 >
                   <Counter value={s.v} suffix={s.s} />
-                  <p className="mt-2 text-[13px] text-muted font-medium">{s.l}</p>
+                  <p className="mt-2 text-[12px] sm:text-[13px] text-muted font-medium">{s.l}</p>
                 </div>
               ))}
             </div>
@@ -133,26 +133,26 @@ export default function About() {
       </section>
 
       {/* ===== MISSION & VISION ===== */}
-      <section className="relative py-[70px] overflow-hidden bg-bg-alt">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+      <section className="relative py-12 sm:py-[70px] overflow-hidden bg-bg-alt">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <SectionTag>Purpose</SectionTag>
 
-          <h2 className="text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
+          <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
             Mission &amp; <GradientHeading>Vision</GradientHeading>
           </h2>
 
-          <p className="max-w-[620px] mx-auto mt-4 text-muted text-[15px] leading-[1.7]">
+          <p className="max-w-[620px] mx-auto mt-4 text-muted text-[14px] sm:text-[15px] leading-[1.7]">
             What drives us forward and where we're heading next.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-6 mt-12 text-left">
+          <div className="grid md:grid-cols-2 gap-5 sm:gap-6 mt-10 sm:mt-12 text-left">
             {missionVision.map((card) => {
               const Icon = card.icon;
               const isPink = card.variant === "pink";
               return (
                 <div
                   key={card.highlight}
-                  className={`relative overflow-hidden bg-white border border-border-light rounded-2xl pt-8 px-8 pb-9 shadow-[0_14px_34px_rgba(47,84,255,.08)] transition-transform hover:-translate-y-1 before:content-[''] before:absolute before:-right-15 before:-bottom-20 before:w-[220px] before:h-[220px] before:rounded-full before:pointer-events-none before:opacity-20 ${
+                  className={`relative overflow-hidden bg-white border border-border-light rounded-2xl pt-7 sm:pt-8 px-6 sm:px-8 pb-8 sm:pb-9 shadow-[0_14px_34px_rgba(47,84,255,.08)] transition-transform hover:-translate-y-1 before:content-[''] before:absolute before:-right-15 before:-bottom-20 before:w-[220px] before:h-[220px] before:rounded-full before:pointer-events-none before:opacity-20 ${
                     isPink
                       ? "before:bg-[radial-gradient(circle_at_30%_30%,var(--color-primary),transparent_70%)]"
                       : "before:bg-[radial-gradient(circle_at_30%_30%,var(--color-primary-dark),transparent_70%)]"
@@ -166,7 +166,7 @@ export default function About() {
 
                   <span className={`block w-8 h-[3px] rounded my-5 mb-3.5 relative z-10 ${isPink ? "bg-primary" : "bg-primary-dark"}`} />
 
-                  <h3 className="text-2xl font-extrabold text-ink relative z-10 mb-2.5">
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-ink relative z-10 mb-2.5">
                     {card.title}{" "}
                     <span className={isPink ? "text-primary" : "text-primary-dark"}>
                       {card.highlight}
@@ -184,19 +184,19 @@ export default function About() {
       </section>
 
       {/* ===== TIMELINE ===== */}
-      <section className="relative py-20 overflow-hidden bg-bg-alt">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+      <section className="relative py-14 sm:py-20 overflow-hidden bg-bg-alt">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <SectionTag>Timeline</SectionTag>
 
-          <h2 className="text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
+          <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
             Our <GradientHeading>Journey</GradientHeading>
           </h2>
 
-          <p className="max-w-[620px] mx-auto mt-4 text-muted text-[15px] leading-[1.7]">
+          <p className="max-w-[620px] mx-auto mt-4 text-muted text-[14px] sm:text-[15px] leading-[1.7]">
             From a small idea to a trusted name in full-service technology solutions.
           </p>
 
-          <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 text-left">
+          <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 sm:mt-16 text-left">
             {journey.map((item, index) => {
               const Icon = item.icon;
               const next = journey[index + 1];
@@ -219,7 +219,9 @@ export default function About() {
                   {next && (
                     <motion.span
                       aria-hidden
-                      className="hidden md:block absolute left-1/2 top-8 h-0.5 w-[calc(100%+1.5rem)] origin-left bg-gradient-to-r from-pink via-violet to-primary"
+                      className={`hidden md:block absolute left-1/2 top-8 h-0.5 w-[calc(100%+1.5rem)] origin-left bg-gradient-to-r from-pink via-violet to-primary ${
+                        index % 2 === 1 ? "md:max-lg:hidden" : ""
+                      }`}
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
                       viewport={{ once: true, margin: "-40px" }}
@@ -242,7 +244,7 @@ export default function About() {
                     <span className="w-2.5 h-2.5 rounded-full bg-primary" />
                   </div>
 
-                  <div className="relative overflow-hidden bg-white border border-border-light rounded-2xl px-6 py-6 shadow-[0_10px_30px_rgba(47,84,255,.06)] mt-2 w-full transition-transform hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]">
+                  <div className="relative overflow-hidden bg-white border border-border-light rounded-2xl px-5 sm:px-6 py-6 shadow-[0_10px_30px_rgba(47,84,255,.06)] mt-2 w-full transition-transform hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]">
                     <span className="absolute right-0 top-0 w-20 h-20 rounded-bl-[100%] bg-primary/10" />
                     <span className="relative text-2xl font-extrabold text-primary font-display block">
                       {item.year}
@@ -262,22 +264,22 @@ export default function About() {
       </section>
 
       {/* ===== ACHIEVEMENTS ===== */}
-      <section className="relative py-20 overflow-hidden bg-bg-alt">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+      <section className="relative py-14 sm:py-20 overflow-hidden bg-bg-alt">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <SectionTag>Achievements</SectionTag>
 
-          <h2 className="text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
+          <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
             Numbers that <GradientHeading>speak for us</GradientHeading>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mt-10 sm:mt-14">
             {achievements.map((s) => (
               <div
                 key={s.l}
-                className="bg-white border border-border-light rounded-2xl px-6 py-8 text-center shadow-[0_10px_30px_rgba(47,84,255,.06)] transition-transform hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]"
+                className="bg-white border border-border-light rounded-2xl px-4 sm:px-6 py-7 sm:py-8 text-center shadow-[0_10px_30px_rgba(47,84,255,.06)] transition-transform hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]"
               >
                 <Counter value={s.v} suffix={s.s} />
-                <p className="mt-2 text-[13px] text-muted font-medium">{s.l}</p>
+                <p className="mt-2 text-[12px] sm:text-[13px] text-muted font-medium">{s.l}</p>
               </div>
             ))}
           </div>
@@ -285,21 +287,21 @@ export default function About() {
       </section>
 
       {/* ===== VALUES ===== */}
-      <section className="relative py-20 overflow-hidden bg-bg-alt">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+      <section className="relative py-14 sm:py-20 overflow-hidden bg-bg-alt">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <SectionTag>Our Values</SectionTag>
 
-          <h2 className="text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
+          <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
             Innovate · Build · Grow · <GradientHeading>Succeed</GradientHeading>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14 text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-10 sm:mt-14 text-left">
             {values.map((v) => {
               const Icon = v.icon;
               return (
                 <div
                   key={v.title}
-                  className="relative overflow-hidden bg-white border border-border-light rounded-2xl px-6 py-7 shadow-[0_10px_30px_rgba(47,84,255,.06)] transition-transform hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]"
+                  className="relative overflow-hidden bg-white border border-border-light rounded-2xl px-5 sm:px-6 py-6 sm:py-7 shadow-[0_10px_30px_rgba(47,84,255,.06)] transition-transform hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]"
                 >
                   <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary">
                     <Icon size={20} strokeWidth={1.8} />
@@ -315,19 +317,19 @@ export default function About() {
       </section>
 
       {/* ===== TEAM ===== */}
-      <section className="relative py-20 overflow-hidden bg-white">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+      <section className="relative py-14 sm:py-20 overflow-hidden bg-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <SectionTag>Team</SectionTag>
 
-          <h2 className="text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
+          <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold leading-[1.15] tracking-[-.02em] mt-5 mb-0 text-ink">
             The people behind <GradientHeading>Code Axis Tech</GradientHeading>
           </h2>
 
-          <p className="max-w-[620px] mx-auto mt-4 text-muted text-[15px] leading-[1.7]">
+          <p className="max-w-[620px] mx-auto mt-4 text-muted text-[14px] sm:text-[15px] leading-[1.7]">
             A compact, senior team of designers, developers and strategists working directly with you.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14 text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-10 sm:mt-14 text-left">
             {team.map((member, index) => {
               const extra = teamExtras[member.name] ?? teamFallback;
               const Icon = extra.icon;
@@ -336,7 +338,7 @@ export default function About() {
               return (
                 <motion.div
                   key={member.name}
-                  className="relative rounded-[18px] p-0.5 h-full"
+                  className="relative rounded-[18px] p-0.5 h-full w-full max-w-[420px] mx-auto sm:max-w-none"
                   whileHover={{ y: -6 }}
                 >
                   <span

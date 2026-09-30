@@ -35,11 +35,11 @@ function ContactItem({ Icon, title, text, type }) {
   const bg = type === "pink" ? "bg-pink/15 text-pink" : "bg-primary/15 text-accent";
   return (
     <div className="flex gap-3 items-center">
-      <div className={`w-9 h-9 rounded-full grid place-items-center ${bg}`}>
+      <div className={`w-9 h-9 shrink-0 rounded-full grid place-items-center ${bg}`}>
         <Icon size={15} />
       </div>
-      <div>
-        <b className="block text-xs text-white">{title}</b>
+      <div className="min-w-0">
+        <b className="block text-xs text-white break-words">{title}</b>
         <span className="block text-[11px] text-footer-text">{text}</span>
       </div>
     </div>
@@ -59,11 +59,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative overflow-hidden bg-footer-bg text-footer-text-2 pt-16">
+    <footer className="relative overflow-hidden bg-footer-bg text-footer-text-2 pt-12 sm:pt-16">
       <div className="absolute -right-20 -bottom-24 w-[260px] h-[260px] rounded-full bg-gradient-to-br from-pink to-violet opacity-35 pointer-events-none" />
       <div className="absolute right-[180px] -bottom-16 w-[250px] h-[140px] rounded-full bg-primary opacity-25 pointer-events-none" />
 
-      <div className="relative max-w-[1200px] mx-auto px-6 pb-10">
+      <div className="relative max-w-[1200px] mx-auto px-4 sm:px-6 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_.7fr_.9fr_1.2fr] gap-10">
           <div className="lg:border-r lg:border-white/10 lg:pr-10">
             <Logo variant="light" />
@@ -82,10 +82,10 @@ export default function Footer() {
 
           <div>
             <ColumnTitle barColor="bg-pink">Quick Links</ColumnTitle>
-            <ul className="mt-6">
+            <ul className="mt-5 sm:mt-6">
               {links.map(([name, path]) => (
                 <li key={path} className="text-xs mb-3 text-footer-text-2 hover:text-white transition-colors">
-                  <Link to={path}>{name}</Link>
+                  <Link to={path} className="inline-block py-0.5">{name}</Link>
                 </li>
               ))}
             </ul>
@@ -93,7 +93,7 @@ export default function Footer() {
 
           <div>
             <ColumnTitle barColor="bg-accent">Our Services</ColumnTitle>
-            <ul className="mt-6">
+            <ul className="mt-5 sm:mt-6">
               {serviceNames.map((s) => (
                 <li key={s} className="text-xs mb-3 text-footer-text-2 hover:text-white transition-colors">
                   {s}
@@ -111,7 +111,7 @@ export default function Footer() {
 
             <form
               onSubmit={submit}
-              className="mt-5 h-[42px] flex bg-footer-input border border-white/10 rounded-xl p-1"
+              className="mt-5 h-[42px] w-full max-w-[420px] flex bg-footer-input border border-white/10 rounded-xl p-1"
             >
               <input
                 type="email"
@@ -119,11 +119,12 @@ export default function Footer() {
                 placeholder="Your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-transparent outline-none px-3 text-white text-xs placeholder:text-footer-text"
+                className="flex-1 min-w-0 bg-transparent outline-none px-3 text-white text-xs placeholder:text-footer-text"
               />
               <button
                 type="submit"
-                className="w-9 rounded-lg bg-pink text-white grid place-items-center hover:opacity-90 transition"
+                aria-label="Subscribe"
+                className="w-9 shrink-0 rounded-lg bg-pink text-white grid place-items-center hover:opacity-90 transition"
               >
                 <Send size={15} />
               </button>
@@ -131,7 +132,7 @@ export default function Footer() {
 
             {sent && <p className="text-xs text-accent mt-2">Thanks for subscribing!</p>}
 
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-3 mt-5">
               {socials.map(({ icon: Icon, label }) => (
                 <a
                   key={label}
@@ -148,7 +149,7 @@ export default function Footer() {
       </div>
 
       <div className="bg-footer-bottom border-t border-white/10 py-4 text-[11px]">
-        <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between gap-2.5">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between gap-2.5 text-center md:text-left">
           <span>
             © {new Date().getFullYear()} <b className="text-white">Code Axis Tech</b>. All rights reserved.
           </span>

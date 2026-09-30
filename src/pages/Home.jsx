@@ -75,36 +75,36 @@ export default function Home() {
 
       {/* ================= HERO ================= */}
       <section className="relative bg-gradient-to-br from-hero-1 via-hero-2 to-hero-3 lg:h-[calc(100vh-82px)] lg:min-h-[620px] lg:max-h-[820px] overflow-hidden">
-        <div className="max-w-[1240px] w-full mx-auto px-10 h-full grid lg:grid-cols-[1fr_1.1fr] gap-6 items-center relative z-10">
+        <div className="max-w-[1240px] w-full mx-auto px-4 sm:px-6 lg:px-10 h-full grid lg:grid-cols-[1fr_1.1fr] gap-6 items-center relative z-10">
 
-          <div className="py-10 lg:py-0">
-            <span className="inline-block border border-border-input bg-white rounded-md px-4 py-2 text-xs font-semibold tracking-[.08em] text-body uppercase">
+          <div className="py-8 sm:py-10 lg:py-0">
+            <span className="inline-block border border-border-input bg-white rounded-md px-3 sm:px-4 py-2 text-[10px] sm:text-xs font-semibold tracking-[.08em] text-body uppercase">
               Web Development &amp; Digital Solutions
             </span>
 
-            <h1 className="font-display text-[44px] xl:text-[56px] font-extrabold leading-[1.05] mt-5 mb-4 tracking-[-.03em] text-ink">
+            <h1 className="font-display text-[34px] sm:text-[44px] lg:text-[46px] xl:text-[56px] font-extrabold leading-[1.05] mt-5 mb-4 tracking-[-.03em] text-ink">
               Digital Solutions<br />
               That <b className="text-primary">Grow Your</b><br />
               Business
             </h1>
 
-            <p className="text-[15px] xl:text-base leading-[1.7] text-muted max-w-[480px]">
+            <p className="text-[14px] sm:text-[15px] xl:text-base leading-[1.7] text-muted max-w-[480px]">
               We design, develop, and market high-performing websites and
               applications that help businesses generate more leads, increase
               sales, and achieve real growth.
             </p>
 
-            <div className="flex flex-wrap gap-3 mt-6 mb-7">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 mt-6 mb-7">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-3 text-[14px] font-semibold px-6 py-3.5 rounded-lg bg-navy text-white shadow-[0_8px_20px_rgba(15,31,61,.25)] hover:opacity-95 transition"
+                className="inline-flex items-center justify-center gap-3 text-[14px] font-semibold px-6 py-3.5 rounded-lg bg-navy text-white shadow-[0_8px_20px_rgba(15,31,61,.25)] hover:opacity-95 transition"
               >
                 Get a Free Consultation <ArrowRight size={15} />
               </Link>
 
               <Link
                 to="/portfolio"
-                className="inline-flex items-center gap-3 text-[14px] font-semibold px-6 py-3.5 rounded-lg bg-white text-ink border border-border-input shadow-[0_4px_12px_rgba(15,31,61,.06)] hover:bg-bg-alt transition"
+                className="inline-flex items-center justify-center gap-3 text-[14px] font-semibold px-6 py-3.5 rounded-lg bg-white text-ink border border-border-input shadow-[0_4px_12px_rgba(15,31,61,.06)] hover:bg-bg-alt transition"
               >
                 <span className="w-[20px] h-[20px] rounded-full bg-primary text-white grid place-items-center">
                   <Play size={9} />
@@ -113,13 +113,13 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="flex flex-nowrap gap-5 xl:gap-7">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap lg:flex-nowrap gap-x-5 gap-y-4 xl:gap-7">
               {features.map(([I, a, b]) => (
-                <div key={a} className="flex gap-2 items-start text-xs xl:text-[13px] text-muted leading-tight shrink-0">
+                <div key={a} className="flex gap-2 items-start text-xs xl:text-[13px] text-muted leading-tight sm:shrink-0">
                   <I size={15} className="text-primary shrink-0 mt-0.5" />
                   <div>
                     <b className="block text-ink font-semibold text-[13px] xl:text-sm">{a}</b>
-                    <span className="whitespace-nowrap">{b}</span>
+                    <span className="sm:whitespace-nowrap">{b}</span>
                   </div>
                 </div>
               ))}
@@ -130,7 +130,7 @@ export default function Home() {
         </div>
 
         {/* RIGHT — hero image */}
-        <div className="hidden lg:flex absolute top-[-140px] right-[40px] xl:right-[2px] bottom-[-30px] w-[60%] xl:w-[58%] items-center justify-end pointer-events-none select-none">
+        <div className="hidden lg:flex absolute top-[-140px] right-[40px] xl:right-[2px] bottom-[-30px] w-[55%] xl:w-[58%] items-center justify-end pointer-events-none select-none">
           <img
             src={heroLaptop}
             alt="Modern web solutions dashboard"
@@ -144,7 +144,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="lg:hidden px-10 pb-10">
+        <div className="lg:hidden px-4 sm:px-6 pb-10">
           <img
             src={heroLaptop}
             alt="Modern web solutions dashboard"
@@ -153,54 +153,54 @@ export default function Home() {
         </div>
       </section>
 
-     {/* ================= TRUSTED (auto-scrolling marquee) ================= */}
-<section className="border-t border-border-soft py-10 bg-bg">
-  <div className="max-w-[1240px] mx-auto px-6 lg:px-10">
-    <small className="block text-[10px] tracking-[.12em] text-faint font-semibold mb-4">
-      TRUSTED BY
-    </small>
-  </div>
-
-  {/* Full-bleed marquee with soft edges */}
-  <div
-    className="relative overflow-hidden"
-    style={{
-      WebkitMaskImage:
-        "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-      maskImage:
-        "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-    }}
-  >
-    <div className="marquee-track gap-14 pr-14">
-      {/* Render the brands list TWICE so the loop is seamless */}
-      {[...brands, ...brands].map(({ name, Icon, style }, i) => (
-        <div
-          key={`${name}-${i}`}
-          className={`flex items-center gap-2.5 shrink-0 ${style}`}
-        >
-          <Icon className="w-6 h-6 shrink-0" />
-          <span>{name}</span>
+      {/* ================= TRUSTED (auto-scrolling marquee) ================= */}
+      <section className="border-t border-border-soft py-8 sm:py-10 bg-bg">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
+          <small className="block text-[10px] tracking-[.12em] text-faint font-semibold mb-4">
+            TRUSTED BY
+          </small>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+
+        {/* Full-bleed marquee with soft edges */}
+        <div
+          className="relative overflow-hidden"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+          }}
+        >
+          <div className="marquee-track gap-8 pr-8 sm:gap-14 sm:pr-14">
+            {/* Render the brands list TWICE so the loop is seamless */}
+            {[...brands, ...brands].map(({ name, Icon, style }, i) => (
+              <div
+                key={`${name}-${i}`}
+                className={`flex items-center gap-2.5 shrink-0 whitespace-nowrap ${style}`}
+              >
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                <span>{name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="py-16">
+      <section className="py-12 sm:py-14 lg:py-16">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-10">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-8 mb-8 sm:mb-10">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
                 Our Services
               </div>
-              <h2 className="text-[32px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink">
-                Complete Digital Solutions<br />Under One Roof
+              <h2 className="text-[26px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink">
+                Complete Digital Solutions<br className="hidden sm:block" /> Under One Roof
               </h2>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <p className="text-[15px] leading-[1.7] text-muted max-w-[360px]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+              <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px]">
                 From websites to marketing and AI automation, we provide
                 end-to-end solutions to help your business grow in the digital world.
               </p>
@@ -214,23 +214,23 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 6 service cards — wider, one per row on mobile, 6 across on xl */}
+          {/* 6 service cards — 1 col mobile, 2 col sm, 3 col md, 6 across on xl */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 xl:gap-4">
             {services.map(([I, t, d], i) => {
-             const palette = [
-  "bg-tint-blue-bg text-tint-blue-fg",     // Web Development
-  "bg-tint-violet-bg text-tint-violet-fg", // UI/UX Design
-  "bg-tint-green-bg text-tint-green-fg",   // Mobile App
-  "bg-tint-sky-bg text-tint-sky-fg",       // E-commerce
-  "bg-tint-pink-bg text-tint-pink-fg",     // Digital Marketing
-  "bg-tint-navy-bg text-tint-navy-fg",     // AI Automation & CRM
-][i];
+              const palette = [
+                "bg-tint-blue-bg text-tint-blue-fg",     // Web Development
+                "bg-tint-violet-bg text-tint-violet-fg", // UI/UX Design
+                "bg-tint-green-bg text-tint-green-fg",   // Mobile App
+                "bg-tint-sky-bg text-tint-sky-fg",       // E-commerce
+                "bg-tint-pink-bg text-tint-pink-fg",     // Digital Marketing
+                "bg-tint-navy-bg text-tint-navy-fg",     // AI Automation & CRM
+              ][i];
 
               return (
                 <Link
                   key={t}
                   to="/services"
-                  className="group bg-white border border-border-light rounded-xl px-5 py-6 shadow-[0_10px_28px_rgba(31,50,120,.07)] min-h-[240px] flex flex-col relative transition-transform hover:-translate-y-1"
+                  className="group bg-white border border-border-light rounded-xl px-5 py-6 pb-12 shadow-[0_10px_28px_rgba(31,50,120,.07)] min-h-[200px] sm:min-h-[240px] flex flex-col relative transition-transform hover:-translate-y-1"
                 >
                   <div className={`w-11 h-11 rounded-[10px] grid place-items-center mb-5 ${palette}`}>
                     <I size={20} />
@@ -250,21 +250,21 @@ export default function Home() {
       </section>
 
       {/* ================= INDUSTRIES ================= */}
-      <section className="py-16">
+      <section className="py-12 sm:py-14 lg:py-16">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
                 Industries We Serve
               </div>
-              {/* Forced single line — no wrap */}
-              <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink whitespace-nowrap">
+              {/* Single line from sm up; wraps on very small screens */}
+              <h2 className="text-[26px] sm:text-[34px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink sm:whitespace-nowrap">
                 Solutions for Every Industry
               </h2>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <p className="text-[15px] leading-[1.7] text-muted max-w-[360px]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+              <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px]">
                 We understand that every industry has unique challenges. Our
                 tailored solutions help businesses across various industries grow and succeed.
               </p>
@@ -282,7 +282,7 @@ export default function Home() {
               <Link
                 key={n}
                 to="/services"
-                className="relative w-full h-[124px] rounded-xl overflow-hidden bg-cover bg-center shadow-[0_10px_24px_rgba(0,0,0,.18)] before:absolute before:inset-0 before:bg-gradient-to-b before:from-black/5 before:to-black/70"
+                className="relative w-full h-[110px] sm:h-[124px] rounded-xl overflow-hidden bg-cover bg-center shadow-[0_10px_24px_rgba(0,0,0,.18)] before:absolute before:inset-0 before:bg-gradient-to-b before:from-black/5 before:to-black/70 last:col-span-2 sm:last:col-span-1"
                 style={{ backgroundImage: `url(${img})` }}
               >
                 <div className="absolute left-2.5 right-2.5 bottom-2.5 flex items-center gap-1.5 text-white text-[11px] font-semibold leading-tight">
@@ -298,30 +298,30 @@ export default function Home() {
       </section>
 
       {/* ================= CASE STUDY ================= */}
-      <section className="py-16">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_1fr_1.25fr] gap-10 items-center">
+      <section className="py-12 sm:py-14 lg:py-16">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_1fr_1.25fr] gap-8 lg:gap-10 items-center">
 
           <div>
             <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
               Case Study
             </div>
-            <h2 className="text-[32px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-4 text-ink">
+            <h2 className="text-[26px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-4 text-ink">
               Real Projects.<br />Real Results.
             </h2>
-            <p className="text-[15px] leading-[1.7] text-muted my-5 mb-7 max-w-[320px]">
+            <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted my-5 mb-7 max-w-[320px]">
               See how we help businesses across different industries achieve their
               goals with modern websites and web applications.
             </p>
             <Link
               to="/portfolio"
-              className="inline-flex items-center gap-3 text-[15px] font-semibold px-7 py-4 rounded-lg bg-navy text-white shadow-[0_8px_20px_rgba(15,31,61,.25)]"
+              className="inline-flex items-center gap-3 text-[14px] sm:text-[15px] font-semibold px-6 sm:px-7 py-3.5 sm:py-4 rounded-lg bg-navy text-white shadow-[0_8px_20px_rgba(15,31,61,.25)]"
             >
               View Case Studies <ArrowRight size={16} />
             </Link>
           </div>
 
           {/* Middle — pure image, no overlays, no text */}
-          <div className="relative h-[240px] rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(15,31,61,.22)] bg-ink">
+          <div className="relative h-[220px] sm:h-[300px] lg:h-[240px] rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(15,31,61,.22)] bg-ink">
             <img
               src={caseStudy}
               alt="Luxury real estate platform"
@@ -329,9 +329,9 @@ export default function Home() {
             />
           </div>
 
-          <div className="bg-white border border-border-light rounded-xl px-7 pt-7 pb-8 shadow-[0_14px_34px_rgba(31,50,120,.09)]">
+          <div className="bg-white border border-border-light rounded-xl px-5 sm:px-7 pt-6 sm:pt-7 pb-7 sm:pb-8 shadow-[0_14px_34px_rgba(31,50,120,.09)]">
             <small className="text-[11px] tracking-[.1em] text-soft font-semibold uppercase">Real Estate</small>
-            <h3 className="text-[22px] font-bold mt-2 mb-2 text-ink font-display">Luxury Real Estate Platform</h3>
+            <h3 className="text-[20px] sm:text-[22px] font-bold mt-2 mb-2 text-ink font-display">Luxury Real Estate Platform</h3>
             <p className="text-sm text-muted leading-[1.65]">
               A custom real estate platform with property listings, advanced search and CRM integration.
             </p>
@@ -342,18 +342,18 @@ export default function Home() {
               <span className="bg-surface-2 rounded-md px-3 py-2 text-xs text-body">UI/UX Design</span>
             </div>
 
-            <div className="grid grid-cols-3 text-center gap-3 mt-2">
+            <div className="grid grid-cols-3 text-center gap-2 sm:gap-3 mt-2">
               <div>
-                <b className="text-[28px] font-extrabold block text-ink leading-none">300%</b>
-                <span className="text-xs text-soft block mt-2 leading-snug">Increase in Leads</span>
+                <b className="text-[22px] sm:text-[28px] font-extrabold block text-ink leading-none">300%</b>
+                <span className="text-[11px] sm:text-xs text-soft block mt-2 leading-snug">Increase in Leads</span>
               </div>
               <div>
-                <b className="text-[28px] font-extrabold block text-ink leading-none">50%</b>
-                <span className="text-xs text-soft block mt-2 leading-snug">Faster Property<br />Management</span>
+                <b className="text-[22px] sm:text-[28px] font-extrabold block text-ink leading-none">50%</b>
+                <span className="text-[11px] sm:text-xs text-soft block mt-2 leading-snug">Faster Property<br />Management</span>
               </div>
               <div>
-                <b className="text-[28px] font-extrabold block text-ink leading-none">98%</b>
-                <span className="text-xs text-soft block mt-2 leading-snug">Client Satisfaction</span>
+                <b className="text-[22px] sm:text-[28px] font-extrabold block text-ink leading-none">98%</b>
+                <span className="text-[11px] sm:text-xs text-soft block mt-2 leading-snug">Client Satisfaction</span>
               </div>
             </div>
           </div>
@@ -361,57 +361,57 @@ export default function Home() {
       </section>
 
       {/* ================= PROCESS ================= */}
-<section className="py-16">
-  <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_2fr] gap-14 items-start pb-20">
-    <div>
-      <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
-        Our Process
-      </div>
-      <h2 className="text-[32px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-4 text-ink">
-        A Simple &<br />Transparent<br />Process
-      </h2>
-    </div>
+      <section className="py-12 sm:py-14 lg:py-16">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_2fr] gap-8 lg:gap-14 items-start pb-12 sm:pb-16 lg:pb-20">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
+              Our Process
+            </div>
+            <h2 className="text-[26px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-4 text-ink">
+              A Simple &<br />Transparent<br />Process
+            </h2>
+          </div>
 
-    <div className="relative">
-      <motion.span
-        aria-hidden
-        className="hidden lg:block absolute left-5 right-0 top-5 h-[2px] origin-left border-t-2 border-dotted border-primary/40"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.4, ease: "easeInOut" }}
-      />
+          <div className="relative">
+            <motion.span
+              aria-hidden
+              className="hidden lg:block absolute left-5 right-0 top-5 h-[2px] origin-left border-t-2 border-dotted border-primary/40"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.4, ease: "easeInOut" }}
+            />
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 relative">
-        {steps.map(([title, text], i) => {
-          const isFirst = i === 0;
-          return (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" }}
-            >
-              <div
-                className={`relative z-10 w-11 h-11 rounded-full grid place-items-center text-sm font-bold mb-6 border transition-colors ${
-                  isFirst
-                    ? "bg-navy text-white border-navy shadow-[0_0_0_6px_rgba(15,31,61,0.08)]"
-                    : "bg-tint-blue-bg text-primary border-primary/20 shadow-[0_0_0_6px_var(--color-tint-blue-bg)]"
-                }`}
-              >
-                0{i + 1}
-              </div>
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-8 relative">
+              {steps.map(([title, text], i) => {
+                const isFirst = i === 0;
+                return (
+                  <motion.div
+                    key={title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" }}
+                  >
+                    <div
+                      className={`relative z-10 w-11 h-11 rounded-full grid place-items-center text-sm font-bold mb-5 sm:mb-6 border transition-colors ${
+                        isFirst
+                          ? "bg-navy text-white border-navy shadow-[0_0_0_6px_rgba(15,31,61,0.08)]"
+                          : "bg-tint-blue-bg text-primary border-primary/20 shadow-[0_0_0_6px_var(--color-tint-blue-bg)]"
+                      }`}
+                    >
+                      0{i + 1}
+                    </div>
 
-              <h4 className="text-base font-bold mb-2 text-ink">{title}</h4>
-              <p className="text-sm text-soft leading-[1.65] max-w-[200px]">{text}</p>
-            </motion.div>
-          );
-        })}
-      </div>
-    </div>
-  </div>
-</section>
+                    <h4 className="text-base font-bold mb-2 text-ink">{title}</h4>
+                    <p className="text-sm text-soft leading-[1.65] max-w-[240px] lg:max-w-[200px]">{text}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
