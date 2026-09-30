@@ -1,0 +1,136 @@
+/* ========== FONTS ========== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap");
+
+/* ========== TAILWIND ========== */
+@import "tailwindcss";
+
+/* ============================================================
+   THEME TOKENS — TECH COMPANY PALETTE
+   Modern · Professional · Futuristic · Scalable
+   ============================================================ */
+@theme {
+  /* ---------- BRAND ---------- */
+  --color-primary:        #3155ff;   /* Electric Blue */
+  --color-primary-dark:   #5b7cff;   /* AI Blue (hover) */
+  --color-accent:         #5bc8ff;   /* Digital Cyan */
+
+  /* ---------- GRADIENT ACCENT COLORS ---------- */
+  --color-pink:           #3155ff;   /* Electric Blue */
+  --color-violet:         #5b7cff;   /* AI Blue */
+
+  /* ---------- DARK / NAVY ---------- */
+  --color-dark:           #0b1228;   /* Primary Navy */
+  --color-navy:           #0b1228;   /* Primary Navy */
+  --color-ink:            #111827;   /* Primary Text */
+
+  /* ---------- TEXT ---------- */
+  --color-body:           #334155;
+  --color-muted:          #64748b;   /* Secondary Text */
+  --color-soft:           #7f8ea8;
+  --color-faint:          #a3b0c7;
+
+  /* ---------- SURFACES ---------- */
+  --color-bg:             #f8f4fd;   /* Off White */
+  --color-bg-alt:         #eef4ff;   /* Soft Blue */
+  --color-surface:        #ffffff;
+  --color-surface-2:      #f1f5fc;
+
+  /* ---------- HERO GRADIENT ---------- */
+  --color-hero-1:         #ffffff;
+  --color-hero-2:         #f0f4ff;
+  --color-hero-3:         #dde7ff;
+
+  /* ---------- BORDERS ---------- */
+  --color-border-light:   #dce4f0;   /* Border */
+  --color-border-soft:    #e8eefb;
+  --color-border-input:   #ccd6e8;
+
+    /* ---------- ICON TINTS (exact from reference) ---------- */
+  --color-tint-blue-bg:     #eaf0ff;
+  --color-tint-blue-fg:     #3b5bdb;
+
+  --color-tint-violet-bg:   #ebe4ff;
+  --color-tint-violet-fg:   #7048e8;
+
+  --color-tint-green-bg:    #d9f2e6;
+  --color-tint-green-fg:    #2f9e6e;
+
+  --color-tint-sky-bg:      #dfeaff;
+  --color-tint-sky-fg:      #3b6fe0;
+
+  --color-tint-pink-bg:     #ffe1ea;
+  --color-tint-pink-fg:     #e0457b;
+
+  --color-tint-navy-bg:     #d9e6ff;
+  --color-tint-navy-fg:     #2f5bd8;
+
+    /* ---------- CTA DECORATION ---------- */
+  --color-cta-pink:         #ff2d8a;
+  --color-cta-blue:         #2f54ff;
+  --color-cta-badge-bg:     #1a2550;
+
+  /* ---------- FOOTER ---------- */
+  --color-footer-bg:        #0b1228;   /* Primary Navy */
+  --color-footer-bottom:    #060b1a;
+  --color-footer-input:     #172a68;
+  --color-footer-text:      #94a3b8;
+  --color-footer-text-2:    #a3b0c7;
+
+  /* ---------- MOCKUP ---------- */
+  --color-mockup-chrome-1:  #2b3446;
+  --color-mockup-chrome-2:  #5a6579;
+  --color-mockup-chrome-3:  #c5ccd8;
+  --color-mockup-base-1:    #e8ebf0;
+  --color-mockup-base-2:    #b9c0cc;
+
+  /* ---------- AVATAR TINTS ---------- */
+  --color-avatar-1-start:   #c9a27a;
+  --color-avatar-1-end:     #7a5a3c;
+  --color-avatar-2-start:   #e2b9a0;
+  --color-avatar-2-end:     #a0674a;
+
+  /* ---------- FONTS ---------- */
+  --font-sans:    "Inter", system-ui, sans-serif;
+  --font-display: "Poppins", system-ui, sans-serif;
+}
+
+/* ============================================================ */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+}
+/* ============================================================
+   BRAND MARQUEE — infinite left scroll
+   ============================================================ */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ---------- PROCESS STEP PULSE ---------- */
+@keyframes process-pulse {
+  0%, 100% { box-shadow: 0 0 0 6px var(--color-tint-blue-bg); }
+  50%      { box-shadow: 0 0 0 10px rgba(47, 84, 255, 0.15); }
+}
+
+.process-step-active {
+  animation: process-pulse 2.4s ease-in-out infinite;
+}
