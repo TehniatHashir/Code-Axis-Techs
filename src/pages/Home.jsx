@@ -144,13 +144,21 @@ export default function Home() {
           />
         </div>
 
-        <div className="lg:hidden px-4 sm:px-6 pb-10">
-          <img
-            src={heroLaptop}
-            alt="Modern web solutions dashboard"
-            className="w-full h-auto max-w-[520px] mx-auto"
-          />
-        </div>
+      <div className="lg:hidden px-4 sm:px-6 pb-10">
+  <img
+    src={heroLaptop}
+    alt="Modern web solutions dashboard"
+    className="w-full h-auto max-w-[520px] mx-auto"
+    style={{
+      WebkitMaskImage:
+        "linear-gradient(to bottom, transparent 0%, black 12%, black 70%, transparent 100%), linear-gradient(to right, black 0%, black 75%, transparent 100%)",
+      WebkitMaskComposite: "source-in",
+      maskImage:
+        "linear-gradient(to bottom, transparent 0%, black 12%, black 70%, transparent 100%), linear-gradient(to right, black 0%, black 75%, transparent 100%)",
+      maskComposite: "intersect",
+    }}
+  />
+</div>
       </section>
 
       {/* ================= TRUSTED (auto-scrolling marquee) ================= */}
