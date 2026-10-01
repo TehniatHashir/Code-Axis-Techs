@@ -14,7 +14,8 @@ export default function Faq() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="py-12 sm:py-14 lg:py-16">
+  
+      <section className="py-10 sm:py-12 lg:py-14">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_1.1fr] gap-8 lg:gap-14 items-start">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">

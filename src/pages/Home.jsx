@@ -4,7 +4,7 @@ import {
   Monitor, PenTool, Smartphone, ShoppingCart, BarChart3, Bot,
   ArrowRight, Play, Target, Layers, Eye, Headphones,
   Home as HomeIcon, Stethoscope, Utensils, HardHat, ShoppingBag,
-  GraduationCap, Truck,
+  GraduationCap, Truck,Search, Code2, Rocket,
 } from "lucide-react";
 
 /* ============ BRAND ICONS ============ */
@@ -68,10 +68,10 @@ const industries = [
 ];
 
 const steps = [
-  ["Discovery", "Understand your goals and requirements."],
-  ["Design", "Create modern and user-focused designs."],
-  ["Development", "Build with clean, scalable and secure code."],
-  ["Launch & Support", "Deploy and provide ongoing support."],
+  ["Discovery", "Understand your goals and requirements.", Search],
+  ["Design", "Create modern and user-focused designs.", PenTool],
+  ["Development", "Build with clean, scalable and secure code.", Code2],
+  ["Launch & Support", "Deploy and provide ongoing support.", Rocket],
 ];
 
 /* Light edge-only blend: just the borders fade, the image stays crisp */
@@ -169,7 +169,8 @@ export default function Home() {
       </section>
 
       {/* ================= TRUSTED (auto-scrolling marquee) ================= */}
-      <section className="border-t border-border-soft py-8 sm:py-10 bg-bg">
+      
+        <section className="border-t border-border-soft py-10 sm:py-12 lg:py-14 bg-bg">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
           <small className="block text-[10px] tracking-[.12em] text-faint font-semibold mb-4">
             TRUSTED BY
@@ -202,7 +203,8 @@ export default function Home() {
       </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="py-12 sm:py-14 lg:py-16">
+     
+        <section className="py-10 sm:py-12 lg:py-14">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-8 mb-8 sm:mb-10">
             <div>
@@ -265,7 +267,8 @@ export default function Home() {
       </section>
 
       {/* ================= INDUSTRIES ================= */}
-      <section className="py-12 sm:py-14 lg:py-16">
+     
+        <section className="py-10 sm:py-12 lg:py-14">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-8 mb-8">
             <div>
@@ -313,7 +316,8 @@ export default function Home() {
       </section>
 
       {/* ================= CASE STUDY ================= */}
-      <section className="py-12 sm:py-14 lg:py-16">
+     
+        <section className="py-10 sm:py-12 lg:py-14">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_1fr_1.25fr] gap-8 lg:gap-10 items-center">
 
           <div>
@@ -376,8 +380,9 @@ export default function Home() {
       </section>
 
       {/* ================= PROCESS ================= */}
-      <section className="py-12 sm:py-14 lg:py-16">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_2fr] gap-8 lg:gap-14 items-start pb-12 sm:pb-16 lg:pb-20">
+     
+        <section className="py-10 sm:py-12 lg:py-14">
+       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[.9fr_2fr] gap-8 lg:gap-14 items-start">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
               Our Process
@@ -386,51 +391,77 @@ export default function Home() {
               A Simple &<br />Transparent<br />Process
             </h2>
           </div>
+<ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+  {steps.map(([title, text, Icon], index) => {
+    const hasNext = index < steps.length - 1;
+    return (
+      <li
+        key={title}
+        className="relative flex flex-col items-start md:items-center pl-[76px] md:pl-0"
+      >
+        {/* mobile vertical line */}
+        {hasNext && (
+          <motion.span
+            aria-hidden
+            className="md:hidden absolute left-[27px] top-7 h-[calc(100%+40px)] w-0.5 origin-top bg-gradient-to-b from-pink via-violet to-primary"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.8, delay: index * 0.15, ease: "easeInOut" }}
+          />
+        )}
 
-          <div className="relative">
-            <motion.span
-              aria-hidden
-              className="hidden lg:block absolute left-5 right-0 top-5 h-[2px] origin-left border-t-2 border-dotted border-primary/40"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.4, ease: "easeInOut" }}
-            />
+        {/* desktop horizontal line */}
+        {hasNext && (
+          <motion.span
+            aria-hidden
+            className={`hidden md:block absolute left-1/2 top-8 h-0.5 w-[calc(100%+1rem)] origin-left bg-gradient-to-r from-pink via-violet to-primary ${
+              index % 2 === 1 ? "md:max-lg:hidden" : ""
+            }`}
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.8, delay: index * 0.2, ease: "easeInOut" }}
+          />
+        )}
 
-            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-8 relative">
-              {steps.map(([title, text], i) => {
-                const isFirst = i === 0;
-                return (
-                  <motion.div
-                    key={title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" }}
-                  >
-                    <div
-                      className={`relative z-10 w-11 h-11 rounded-full grid place-items-center text-sm font-bold mb-5 sm:mb-6 border transition-colors ${
-                        isFirst
-                          ? "bg-navy text-white border-navy shadow-[0_0_0_6px_rgba(15,31,61,0.08)]"
-                          : "bg-tint-blue-bg text-primary border-primary/20 shadow-[0_0_0_6px_var(--color-tint-blue-bg)]"
-                      }`}
-                    >
-                      0{i + 1}
-                    </div>
+        {/* icon circle */}
+        <motion.div
+          className="absolute left-0 top-0 md:relative md:left-auto md:top-auto z-10 flex items-center justify-center w-14 h-14 rounded-full bg-white border-4 border-white text-primary shadow-[0_14px_34px_rgba(47,84,255,.18)]"
+          initial={{ opacity: 0, scale: 0.6 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: index * 0.15 }}
+        >
+          <Icon size={22} strokeWidth={1.8} />
+        </motion.div>
 
-                    <h4 className="text-base font-bold mb-2 text-ink">{title}</h4>
-                    <p className="text-sm text-soft leading-[1.65] max-w-[240px] lg:max-w-[200px]">{text}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+        {/* dashed stem + dot */}
+        <div className="hidden md:flex flex-col items-center">
+          <span className="h-6 border-l border-dashed border-primary" />
+          <span className="w-2.5 h-2.5 rounded-full bg-primary" />
         </div>
+
+        {/* card */}
+        <div className="relative overflow-hidden bg-white border border-border-light rounded-2xl px-4 sm:px-5 py-6 shadow-[0_10px_30px_rgba(47,84,255,.06)] mt-2 w-full transition-transform hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(47,84,255,.12)]">
+          <span className="absolute right-0 top-0 w-20 h-20 rounded-bl-[100%] bg-primary/10" />
+          <span className="relative text-2xl font-extrabold text-primary font-display block">
+            0{index + 1}
+          </span>
+          <h3 className="relative text-[17px] font-bold text-ink mt-1.5">{title}</h3>
+          <p className="relative text-[13px] text-muted leading-[1.7] mt-2">{text}</p>
+        </div>
+      </li>
+    );
+  })}
+</ol>
+         </div>
       </section>
 
       <Testimonials />
-      <Faq />
       <CTA />
+      <Faq />
+      
     </div>
   );
 }

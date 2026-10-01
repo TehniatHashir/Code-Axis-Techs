@@ -48,7 +48,7 @@ export default function CTA() {
         <rect x="1280" y="110" width="150" height="190" fill="url(#ctaDots)" opacity=".5" />
       </svg>
 
-      <div className="relative max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10 lg:py-9 grid lg:grid-cols-[1fr_1.05fr] xl:grid-cols-[.85fr_1.15fr] gap-5 sm:gap-6 items-center">
+      <div className="relative max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 lg:py-14 grid lg:grid-cols-[1fr_1.05fr] xl:grid-cols-[.85fr_1.15fr] gap-5 sm:gap-6 items-center">
 
         {/* LEFT — content */}
         <div className="relative z-10">

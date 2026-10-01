@@ -32,7 +32,7 @@ const testimonials = [
     role: "Founder, FoodVista",
     text: "Working with Code Axis Tech was a game-changer for our business. They built a fast, beautiful, and scalable platform that perfectly fits our needs. The support and communication throughout the project were outstanding.",
   },
-   {
+  {
     name: "Sarah Thompson",
     photo: "sarah-thompson",
     role: "Director, EduTech Solutions",
@@ -54,7 +54,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-12 sm:py-14 lg:py-16">
+    <section className="py-10 sm:py-12 lg:py-14">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8 mb-8 sm:mb-10">
           <div>
@@ -94,14 +94,16 @@ export default function Testimonials() {
 
         <div
           ref={track}
-          className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 -mb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 -mb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {testimonials.map((t) => (
             <article
               key={t.name}
-              className="snap-start shrink-0 basis-[88%] sm:basis-[calc(50%-8px)] lg:basis-[calc(33.333%-10.67px)] bg-white border border-border-light rounded-xl p-5 sm:p-6 shadow-[0_14px_34px_rgba(31,50,120,.07)]"
+              className="relative overflow-hidden snap-start shrink-0 basis-[88%] sm:basis-[calc(50%-8px)] lg:basis-[calc(33.333%-10.67px)] bg-white border border-border-light rounded-xl p-5 sm:p-6 shadow-[0_14px_34px_rgba(31,50,120,.07)]"
             >
-              <div className="flex items-center gap-3.5">
+              
+
+              <div className="relative flex items-center gap-3.5">
                 {avatarFor(t.photo) ? (
                   <img
                     src={avatarFor(t.photo)}
@@ -125,8 +127,12 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <Quote size={22} className="text-primary/25 fill-primary/25 mt-5" />
-              <p className="text-[14px] sm:text-[15px] leading-[1.75] text-muted mt-2">“{t.text}”</p>
+              {/* quote badge */}
+              <span className="relative mt-5 inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary to-navy text-white shadow-[0_8px_18px_rgba(47,84,255,.3)]">
+                <Quote size={16} strokeWidth={0} className="fill-white" />
+              </span>
+
+              <p className="relative text-[14px] sm:text-[15px] leading-[1.75] text-muted mt-4">{t.text}</p>
             </article>
           ))}
         </div>

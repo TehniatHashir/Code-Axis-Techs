@@ -53,7 +53,7 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-footer-bg text-footer-text-2 border-t border-white/10">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 pt-7 sm:pt-8 pb-5 sm:pb-6">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 lg:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[1.35fr_.75fr_1.05fr_.85fr_1.3fr] gap-x-8 gap-y-6 lg:gap-x-14 xl:gap-x-10">
 
           {/* Brand */}
