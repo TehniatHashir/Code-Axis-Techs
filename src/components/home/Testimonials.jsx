@@ -32,6 +32,12 @@ const testimonials = [
     role: "Founder, FoodVista",
     text: "Working with Code Axis Tech was a game-changer for our business. They built a fast, beautiful, and scalable platform that perfectly fits our needs. The support and communication throughout the project were outstanding.",
   },
+   {
+    name: "Sarah Thompson",
+    photo: "sarah-thompson",
+    role: "Director, EduTech Solutions",
+    text: "Code Axis Tech exceeded our expectations at every stage. Their attention to detail and commitment to delivering on time made the entire experience seamless. Our new platform has greatly improved user engagement and retention.",
+  },
 ];
 
 const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2);
