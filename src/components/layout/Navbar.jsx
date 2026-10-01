@@ -22,13 +22,13 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full max-w-full bg-bg border-b border-border-soft">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-[64px] sm:h-[82px] flex items-center justify-between gap-3">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 h-[64px] sm:h-[82px] flex items-center justify-between gap-3">
         {/* Logo is ~290px wide at full size, so it is scaled down on phones */}
         <div className="min-w-0 shrink [zoom:0.72] min-[400px]:[zoom:0.85] sm:[zoom:1]">
           <Logo />
         </div>
 
-        <div className="hidden md:flex gap-5 lg:gap-10">
+        <div className="hidden lg:flex gap-10">
           {items.map(([n, p]) => (
             <NavLink
               key={p}
@@ -61,7 +61,7 @@ export default function Navbar() {
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="md:hidden w-10 h-10 grid place-items-center rounded-lg border border-border-soft text-ink"
+            className="lg:hidden w-10 h-10 grid place-items-center rounded-lg border border-border-soft text-ink"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -70,7 +70,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border-soft bg-bg px-4 sm:px-6 pb-4">
+        <div className="lg:hidden border-t border-border-soft bg-bg px-4 sm:px-6 pb-4">
           {items.map(([n, p]) => (
             <NavLink
               key={p}

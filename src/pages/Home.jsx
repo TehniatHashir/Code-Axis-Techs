@@ -24,6 +24,11 @@ import imgEcommerce from "../assets/images/industry-ecommerce.jpg";
 import imgEducation from "../assets/images/industry-education.jpg";
 import imgLogistics from "../assets/images/industry-logistics.jpg";
 
+/* ============ SECTIONS ============ */
+import Testimonials from "../components/home/Testimonials";
+import Faq from "../components/home/Faq";
+import CTA from "../components/layout/CTA";
+
 /* ============ DATA ============ */
 const features = [
   [Target, "Strategy", "First Approach"],
@@ -69,6 +74,16 @@ const steps = [
   ["Launch & Support", "Deploy and provide ongoing support."],
 ];
 
+/* Light edge-only blend: just the borders fade, the image stays crisp */
+const softEdge = {
+  WebkitMaskImage:
+    "linear-gradient(to right, transparent 0%, black 4%, black 100%), linear-gradient(to left, transparent 0%, black 4%, black 100%), linear-gradient(to bottom, transparent 0%, black 4%, black 92%, transparent 100%)",
+  WebkitMaskComposite: "source-in",
+  maskImage:
+    "linear-gradient(to right, transparent 0%, black 4%, black 100%), linear-gradient(to left, transparent 0%, black 4%, black 100%), linear-gradient(to bottom, transparent 0%, black 4%, black 92%, transparent 100%)",
+  maskComposite: "intersect",
+};
+
 export default function Home() {
   return (
     <div className="font-sans text-ink bg-bg overflow-x-hidden">
@@ -82,13 +97,13 @@ export default function Home() {
               Web Development &amp; Digital Solutions
             </span>
 
-            <h1 className="font-display text-[34px] sm:text-[44px] lg:text-[46px] xl:text-[56px] font-extrabold leading-[1.05] mt-5 mb-4 tracking-[-.03em] text-ink">
+            <h1 className="font-display text-[34px] sm:text-[44px] lg:text-[40px] xl:text-[56px] font-extrabold leading-[1.05] mt-5 mb-4 tracking-[-.03em] text-ink">
               Digital Solutions<br />
               That <b className="text-primary">Grow Your</b><br />
               Business
             </h1>
 
-            <p className="text-[14px] sm:text-[15px] xl:text-base leading-[1.7] text-muted max-w-[480px]">
+            <p className="text-[14px] sm:text-[15px] xl:text-base leading-[1.7] text-muted max-w-[480px] lg:max-w-[400px] xl:max-w-[480px]">
               We design, develop, and market high-performing websites and
               applications that help businesses generate more leads, increase
               sales, and achieve real growth.
@@ -113,13 +128,13 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap lg:flex-nowrap gap-x-5 gap-y-4 xl:gap-7">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap lg:flex-nowrap gap-x-5 lg:gap-x-3 gap-y-4 xl:gap-7">
               {features.map(([I, a, b]) => (
-                <div key={a} className="flex gap-2 items-start text-xs xl:text-[13px] text-muted leading-tight sm:shrink-0">
+                <div key={a} className="flex gap-2 items-start text-xs xl:text-[13px] text-muted leading-tight sm:shrink-0 lg:shrink xl:shrink-0">
                   <I size={15} className="text-primary shrink-0 mt-0.5" />
                   <div>
                     <b className="block text-ink font-semibold text-[13px] xl:text-sm">{a}</b>
-                    <span className="sm:whitespace-nowrap">{b}</span>
+                    <span className="sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">{b}</span>
                   </div>
                 </div>
               ))}
@@ -130,35 +145,27 @@ export default function Home() {
         </div>
 
         {/* RIGHT — hero image */}
-        <div className="hidden lg:flex absolute top-[-140px] right-[40px] xl:right-[2px] bottom-[-30px] w-[55%] xl:w-[58%] items-center justify-end pointer-events-none select-none">
+        <div className="hidden lg:block absolute inset-0 pointer-events-none select-none">
+          <div className="relative h-full max-w-[1240px] mx-auto">
+          <div className="absolute top-[-140px] bottom-[-30px] right-[-20px] xl:right-[-40px] w-[48%] xl:w-[62%] flex items-center justify-end">
           <img
             src={heroLaptop}
             alt="Modern web solutions dashboard"
             className="w-full h-auto max-h-[115%] object-contain"
-            style={{
-              WebkitMaskImage:
-                "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-              maskImage:
-                "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-            }}
+            style={softEdge}
           />
+          </div>
+          </div>
         </div>
 
-      <div className="lg:hidden px-4 sm:px-6 pb-10">
-  <img
-    src={heroLaptop}
-    alt="Modern web solutions dashboard"
-    className="w-full h-auto max-w-[520px] mx-auto"
-    style={{
-      WebkitMaskImage:
-        "linear-gradient(to bottom, transparent 0%, black 12%, black 70%, transparent 100%), linear-gradient(to right, black 0%, black 75%, transparent 100%)",
-      WebkitMaskComposite: "source-in",
-      maskImage:
-        "linear-gradient(to bottom, transparent 0%, black 12%, black 70%, transparent 100%), linear-gradient(to right, black 0%, black 75%, transparent 100%)",
-      maskComposite: "intersect",
-    }}
-  />
-</div>
+        <div className="lg:hidden px-4 sm:px-6 pb-10">
+          <img
+            src={heroLaptop}
+            alt="Modern web solutions dashboard"
+            className="w-full h-auto max-w-[520px] mx-auto"
+            style={softEdge}
+          />
+        </div>
       </section>
 
       {/* ================= TRUSTED (auto-scrolling marquee) ================= */}
@@ -167,9 +174,8 @@ export default function Home() {
           <small className="block text-[10px] tracking-[.12em] text-faint font-semibold mb-4">
             TRUSTED BY
           </small>
-        </div>
 
-        {/* Full-bleed marquee with soft edges */}
+        {/* Marquee kept inside the same container as the other sections, soft edges */}
         <div
           className="relative overflow-hidden"
           style={{
@@ -179,7 +185,7 @@ export default function Home() {
               "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
           }}
         >
-          <div className="marquee-track gap-8 pr-8 sm:gap-14 sm:pr-14">
+          <div className="marquee-track hover:[animation-play-state:paused] gap-8 pr-8 sm:gap-14 sm:pr-14">
             {/* Render the brands list TWICE so the loop is seamless */}
             {[...brands, ...brands].map(({ name, Icon, style }, i) => (
               <div
@@ -192,11 +198,12 @@ export default function Home() {
             ))}
           </div>
         </div>
+        </div>
       </section>
 
       {/* ================= SERVICES ================= */}
       <section className="py-12 sm:py-14 lg:py-16">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-8 mb-8 sm:mb-10">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
@@ -420,6 +427,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Testimonials />
+      <Faq />
+      <CTA />
     </div>
   );
 }

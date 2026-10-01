@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import { Clock, MapPin, Mail, Phone, Send } from "lucide-react";
-import { FaLinkedin, FaFacebook, FaInstagram, FaDribbble } from "react-icons/fa";
+import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
+import { FaLinkedinIn, FaTwitter, FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 import { useState } from "react";
 import Logo from "../common/Logo";
 import { serviceNames } from "../../data/services";
 
 const socials = [
-  { icon: FaLinkedin, label: "LinkedIn" },
-  { icon: FaFacebook, label: "Facebook" },
+  { icon: FaLinkedinIn, label: "LinkedIn" },
+  { icon: FaTwitter, label: "Twitter" },
   { icon: FaInstagram, label: "Instagram" },
-  { icon: FaDribbble, label: "Dribbble" },
+  { icon: FaFacebookF, label: "Facebook" },
+  { icon: FaYoutube, label: "YouTube" },
 ];
 
 const links = [
@@ -20,30 +21,22 @@ const links = [
   ["Contact", "/contact"],
 ];
 
-const legal = ["Privacy Policy", "Terms of Service", "Cookie Policy"];
+const locations = ["United States", "Canada", "United Kingdom", "Australia", "UAE", "India"];
+const legal = ["Privacy Policy", "Terms of Service", "Sitemap"];
 
-function ColumnTitle({ children, barColor }) {
-  return (
-    <div>
-      <h3 className="text-sm text-white font-semibold font-display">{children}</h3>
-      <span className={`block h-[3px] w-7 mt-2.5 rounded-full ${barColor}`} />
-    </div>
-  );
+function ColumnTitle({ children }) {
+  return <h3 className="text-sm font-semibold text-white font-display mb-3 sm:mb-3.5">{children}</h3>;
 }
 
-function ContactItem({ Icon, title, text, type }) {
-  const bg = type === "pink" ? "bg-pink/15 text-pink" : "bg-primary/15 text-accent";
-  return (
-    <div className="flex gap-3 items-center">
-      <div className={`w-9 h-9 shrink-0 rounded-full grid place-items-center ${bg}`}>
-        <Icon size={15} />
-      </div>
-      <div className="min-w-0">
-        <b className="block text-xs text-white break-words">{title}</b>
-        <span className="block text-[11px] text-footer-text">{text}</span>
-      </div>
-    </div>
+function ContactLine({ Icon, children, href }) {
+  const body = (
+    <>
+      <Icon size={14} className="shrink-0 mt-0.5 text-white" />
+      <span className="min-w-0 break-words">{children}</span>
+    </>
   );
+  const cls = "flex items-start gap-3 text-[13px] leading-snug text-footer-text-2 hover:text-white transition-colors";
+  return href ? <a href={href} className={cls}>{body}</a> : <div className={cls}>{body}</div>;
 }
 
 export default function Footer() {
@@ -59,105 +52,119 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative overflow-hidden bg-footer-bg text-footer-text-2 pt-12 sm:pt-16">
-      <div className="absolute -right-20 -bottom-24 w-[260px] h-[260px] rounded-full bg-gradient-to-br from-pink to-violet opacity-35 pointer-events-none" />
-      <div className="absolute right-[180px] -bottom-16 w-[250px] h-[140px] rounded-full bg-primary opacity-25 pointer-events-none" />
+    <footer className="relative bg-footer-bg text-footer-text-2 border-t border-white/10">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 pt-7 sm:pt-8 pb-5 sm:pb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[1.35fr_.75fr_1.05fr_.85fr_1.3fr] gap-x-8 gap-y-6 lg:gap-x-14 xl:gap-x-10">
 
-      <div className="relative max-w-[1200px] mx-auto px-4 sm:px-6 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_.7fr_.9fr_1.2fr] gap-10">
-          <div className="lg:border-r lg:border-white/10 lg:pr-10">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-1 lg:pr-4 xl:pr-0">
             <Logo variant="light" />
-
-            <p className="text-xs leading-relaxed text-footer-text mt-4 mb-4 max-w-[330px]">
-              Code Axis Tech empowers innovation, delivering modern IT solutions tailored to your business needs.
+            <p className="text-[13px] leading-[1.65] text-footer-text-2 mt-3 max-w-[340px]">
+              We design, develop, and market high-performing websites and digital
+              solutions that help businesses grow, generate more leads, and achieve real results.
             </p>
-
-            <div className="flex flex-col gap-4">
-              <ContactItem Icon={Clock} title="Open Hours" text="Available 24/7 to Serve You Anytime" type="pink" />
-              <ContactItem Icon={MapPin} title="Gulberg Lahore" text="Pakistan" type="blue" />
-              <ContactItem Icon={Mail} title="info@codeaxistech.com" text="We reply within 24 hours" type="pink" />
-              <ContactItem Icon={Phone} title="+92 336 3339083" text="Call or WhatsApp" type="blue" />
+            <div className="flex flex-wrap gap-4 mt-4">
+              {socials.map(({ icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="text-white/90 hover:text-accent hover:-translate-y-0.5 transition"
+                >
+                  <Icon size={17} />
+                </a>
+              ))}
             </div>
           </div>
 
+          {/* Quick Links */}
           <div>
-            <ColumnTitle barColor="bg-pink">Quick Links</ColumnTitle>
-            <ul className="mt-5 sm:mt-6">
+            <ColumnTitle>Quick Links</ColumnTitle>
+            <ul className="space-y-2">
               {links.map(([name, path]) => (
-                <li key={path} className="text-xs mb-3 text-footer-text-2 hover:text-white transition-colors">
-                  <Link to={path} className="inline-block py-0.5">{name}</Link>
+                <li key={path}>
+                  <Link to={path} className="text-[13px] text-footer-text-2 hover:text-white transition-colors">
+                    {name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
+          {/* Our Services */}
           <div>
-            <ColumnTitle barColor="bg-accent">Our Services</ColumnTitle>
-            <ul className="mt-5 sm:mt-6">
+            <ColumnTitle>Our Services</ColumnTitle>
+            <ul className="space-y-2">
               {serviceNames.map((s) => (
-                <li key={s} className="text-xs mb-3 text-footer-text-2 hover:text-white transition-colors">
+                <li key={s} className="text-[13px] text-footer-text-2 hover:text-white transition-colors">
                   {s}
                 </li>
               ))}
             </ul>
           </div>
 
+          {/* Locations */}
           <div>
-            <ColumnTitle barColor="bg-violet">Stay Updated</ColumnTitle>
-
-            <p className="text-xs leading-relaxed text-footer-text mt-4">
-              Subscribe to our newsletter to get the latest updates, insights and special offers.
-            </p>
-
-            <form
-              onSubmit={submit}
-              className="mt-5 h-[42px] w-full max-w-[420px] flex bg-footer-input border border-white/10 rounded-xl p-1"
-            >
-              <input
-                type="email"
-                required
-                placeholder="Your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 min-w-0 bg-transparent outline-none px-3 text-white text-xs placeholder:text-footer-text"
-              />
-              <button
-                type="submit"
-                aria-label="Subscribe"
-                className="w-9 shrink-0 rounded-lg bg-pink text-white grid place-items-center hover:opacity-90 transition"
-              >
-                <Send size={15} />
-              </button>
-            </form>
-
-            {sent && <p className="text-xs text-accent mt-2">Thanks for subscribing!</p>}
-
-            <div className="flex flex-wrap gap-3 mt-5">
-              {socials.map(({ icon: Icon, label }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="w-[34px] h-[34px] rounded-full border border-white/10 grid place-items-center hover:bg-white/5 transition-colors"
-                >
-                  <Icon size={15} />
-                </a>
+            <ColumnTitle>Locations</ColumnTitle>
+            <ul className="space-y-2">
+              {locations.map((l) => (
+                <li key={l} className="text-[13px] text-footer-text-2 hover:text-white transition-colors">
+                  {l}
+                </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Get In Touch + Newsletter */}
+          <div className="sm:col-span-2 lg:col-span-4 xl:col-span-1 lg:grid lg:grid-cols-2 lg:gap-10 lg:pt-5 lg:border-t lg:border-white/10 xl:block xl:pt-0 xl:border-t-0">
+            <div>
+              <ColumnTitle>Get In Touch</ColumnTitle>
+              <div className="space-y-2">
+                <ContactLine Icon={Phone} href="tel:+923363339083">+92 336 3339083</ContactLine>
+                <ContactLine Icon={Mail} href="mailto:info@codeaxistech.com">info@codeaxistech.com</ContactLine>
+                <ContactLine Icon={MapPin}>Gulberg, Lahore, Pakistan</ContactLine>
+              </div>
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-white/10 lg:mt-0 lg:pt-0 lg:border-t-0 xl:mt-4 xl:pt-4 xl:border-t">
+              <h3 className="text-sm font-semibold text-white font-display mb-2.5">Subscribe to Our Newsletter</h3>
+              <form
+                onSubmit={submit}
+                className="h-[42px] w-full max-w-[420px] flex items-center bg-white/[.04] border border-white/15 rounded-full pl-4 pr-1"
+              >
+                <input
+                  type="email"
+                  required
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 min-w-0 bg-transparent outline-none text-white text-[13px] placeholder:text-footer-text"
+                />
+                <button
+                  type="submit"
+                  aria-label="Subscribe"
+                  className="w-9 h-9 shrink-0 rounded-full bg-white text-ink grid place-items-center hover:opacity-90 transition"
+                >
+                  <ArrowRight size={15} />
+                </button>
+              </form>
+              {sent && <p className="text-xs text-accent mt-2">Thanks for subscribing!</p>}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-footer-bottom border-t border-white/10 py-4 text-[11px]">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between gap-2.5 text-center md:text-left">
+      {/* Bottom bar */}
+      <div className="border-t border-white/10">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 py-3 flex flex-col md:flex-row justify-between items-center gap-2.5 text-[12px] text-center md:text-left">
           <span>
-            © {new Date().getFullYear()} <b className="text-white">Code Axis Tech</b>. All rights reserved.
+            © {new Date().getFullYear()} <b className="text-white font-semibold">Code Axis Tech</b>. All rights reserved.
           </span>
-          <span>
+          <span className="flex flex-wrap justify-center gap-x-3 gap-y-1">
             {legal.map((item, i) => (
-              <span key={item}>
-                {i > 0 && " | "}
-                {item}
+              <span key={item} className="flex items-center gap-3">
+                {i > 0 && <span className="text-white/25">|</span>}
+                <a href="#" className="hover:text-white transition-colors">{item}</a>
               </span>
             ))}
           </span>
