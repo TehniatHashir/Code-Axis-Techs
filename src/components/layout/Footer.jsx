@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Phone, ArrowRight, Loader2 } from "lucide-react";
 import { FaLinkedinIn, FaTwitter, FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 import { useState } from "react";
 import Logo from "../common/Logo";
@@ -41,13 +41,27 @@ function ContactLine({ Icon, children, href }) {
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [msg, setMsg] = useState("");
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
-    if (email.includes("@")) {
-      setSent(true);
+    setStatus("sending");
+    setMsg("");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Couldn't subscribe. Please try again.");
+      setStatus("success");
+      setMsg("Thanks for subscribing!");
       setEmail("");
+    } catch (err) {
+      setStatus("error");
+      setMsg(err.message || "Network error. Please try again.");
     }
   }
 
@@ -138,17 +152,23 @@ export default function Footer() {
                   placeholder="Your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === "sending"}
                   className="flex-1 min-w-0 bg-transparent outline-none text-white text-[13px] placeholder:text-footer-text"
                 />
                 <button
                   type="submit"
                   aria-label="Subscribe"
-                  className="w-9 h-9 shrink-0 rounded-full bg-white text-ink grid place-items-center hover:opacity-90 transition"
+                  disabled={status === "sending"}
+                  className="w-9 h-9 shrink-0 rounded-full bg-white text-ink grid place-items-center hover:opacity-90 disabled:opacity-70 transition"
                 >
-                  <ArrowRight size={15} />
+                  {status === "sending" ? <Loader2 size={15} className="animate-spin" /> : <ArrowRight size={15} />}
                 </button>
               </form>
-              {sent && <p className="text-xs text-accent mt-2">Thanks for subscribing!</p>}
+              {msg && (
+                <p role="status" className={`text-xs mt-2 ${status === "error" ? "text-tint-pink-bg" : "text-white"}`}>
+                  {msg}
+                </p>
+              )}
             </div>
           </div>
         </div>
