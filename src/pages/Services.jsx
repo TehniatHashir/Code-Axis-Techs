@@ -332,25 +332,23 @@ export default function Services() {
       {/* ============ 2. SERVICES ============ */}
       <section className={SECTION}>
         <div className={CONTAINER}>
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-end mb-10 sm:mb-12">
-            <div>
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-10 mb-10 sm:mb-12">
+            <div className="flex-1 min-w-0">
               <SectionTag>Our Services</SectionTag>
-              <h2 className={H2}>
+              <h2 className={`${H2} lg:max-w-[820px]`}>
                 Comprehensive Technology Services for Every Business Need.
               </h2>
-            </div>
-            <div>
-              <p className="text-muted text-[15px] sm:text-base">
+              <p className="mt-4 max-w-[720px] text-muted text-[15px] sm:text-base">
                 From custom software development to cloud solutions, we offer end-to-end services
                 designed to help you innovate, scale and stay competitive.
               </p>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 mt-4 text-primary font-semibold text-sm hover:gap-3 transition-all"
-              >
-                Explore All Services <Icon name="arrow" className="w-4 h-4" />
-              </Link>
             </div>
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 text-primary font-semibold text-sm whitespace-nowrap hover:gap-3 transition-all"
+            >
+              Explore All Services <Icon name="arrow" className="w-4 h-4" />
+            </Link>
           </div>
 
           <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
@@ -423,12 +421,12 @@ export default function Services() {
       {/* ============ 4. PROCESS ============ */}
       <section id="process" className={`scroll-mt-24 ${SECTION}`}>
         <div className={CONTAINER}>
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-end mb-10 sm:mb-12">
-            <div>
-              <SectionTag>Our Process</SectionTag>
-              <h2 className={H2}>A Simple, Transparent Process to Turn Ideas Into Impact.</h2>
-            </div>
-            <p className="text-muted text-[15px] sm:text-base">
+          <div className="mb-10 sm:mb-12">
+            <SectionTag>Our Process</SectionTag>
+            <h2 className={`${H2} lg:max-w-[900px]`}>
+              A Simple, Transparent Process to Turn Ideas Into Impact.
+            </h2>
+            <p className="mt-4 max-w-[760px] text-muted text-[15px] sm:text-base">
               We follow a proven approach to ensure every project is delivered with clarity,
               efficiency and measurable results.
             </p>

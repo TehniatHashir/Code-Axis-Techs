@@ -2,6 +2,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "../common/Logo";
+import JellyNav from "../common/JellyNav";
 
 const items = [
   ["Home", "/"],
@@ -15,7 +16,6 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
-  // Close the mobile menu whenever the route changes
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -23,32 +23,42 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full max-w-full bg-bg border-b border-border-soft">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10 h-[64px] sm:h-[82px] flex items-center justify-between gap-3">
-        {/* Logo is ~290px wide at full size, so it is scaled down on phones */}
         <div className="min-w-0 shrink [zoom:0.72] min-[400px]:[zoom:0.85] sm:[zoom:1]">
           <Logo />
         </div>
 
-        <div className="hidden lg:flex gap-10">
-          {items.map(([n, p]) => (
-            <NavLink
-              key={p}
-              to={p}
-              end
-              className={({ isActive }) =>
-                `py-2 font-medium transition-colors ${
+        {/* ====== DESKTOP LINKS — jelly animated + pill on active ====== */}
+        <div className="hidden lg:flex">
+          <JellyNav
+            items={items}
+            activePath={pathname}
+            gap={4}
+            swell={0.1}
+            barge={3}
+            shrink={0.02}
+            jelly={0.8}
+            bounce={0.25}
+            stagger={18}
+            stiffness={620}
+            renderItem={([label, path], isActive, i, isTarget) => (
+              <NavLink
+                to={path}
+                end
+                className={`inline-block py-2 px-4 font-medium rounded-lg transition-colors duration-200 ${
                   isActive
-                    ? "text-ink border-b-2 border-primary"
-                    : "text-muted hover:text-ink"
-                }`
-              }
-            >
-              {n}
-            </NavLink>
-          ))}
+                    ? "text-primary bg-tint-blue-bg"
+                    : isTarget
+                    ? "text-ink bg-surface-2"
+                    : "text-muted"
+                }`}
+              >
+                {label}
+              </NavLink>
+            )}
+          />
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* Button moves into the mobile menu on phones to save space */}
           <Link
             to="/contact"
             className="hidden sm:inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-5 lg:px-6 py-3 lg:py-3.5 rounded-lg transition-colors text-[14px] lg:text-[15px] whitespace-nowrap"
@@ -68,7 +78,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* ====== MOBILE MENU — unchanged ====== */}
       {open && (
         <div className="lg:hidden border-t border-border-soft bg-bg px-4 sm:px-6 pb-4">
           {items.map(([n, p]) => (

@@ -64,13 +64,13 @@ export default function Testimonials() {
             <h2 className="text-[26px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink">
               What Our Clients<br className="hidden sm:block" /> Say About Us
             </h2>
+           <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px] lg:max-w-[540px] mt-4">
+  We're proud to partner with businesses worldwide and help them achieve
+  real, measurable results through digital innovation.
+</p>
           </div>
 
           <div className="flex w-full lg:w-auto items-center justify-between lg:justify-end gap-6 lg:gap-10">
-            <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px]">
-              We're proud to partner with businesses worldwide and help them achieve
-              real, measurable results through digital innovation.
-            </p>
             <div className="flex gap-2.5 shrink-0">
               <button
                 type="button"

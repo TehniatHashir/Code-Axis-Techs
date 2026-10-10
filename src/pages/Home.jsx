@@ -1,10 +1,12 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import CircularCarousel from "../components/CircularCarousel";
 import {
   Monitor, PenTool, Smartphone, ShoppingCart, BarChart3, Bot,
-  ArrowRight, Play, Target, Layers, Eye, Headphones,
+  ArrowRight, ArrowLeft, Play, Target, Layers, Eye, Headphones,
   Home as HomeIcon, Stethoscope, Utensils, HardHat, ShoppingBag,
-  GraduationCap, Truck,Search, Code2, Rocket,
+  GraduationCap, Truck, Search, Code2, Rocket,
 } from "lucide-react";
 
 /* ============ BRAND ICONS ============ */
@@ -23,6 +25,7 @@ import imgConstruction from "../assets/images/industry-construction.jpg";
 import imgEcommerce from "../assets/images/industry-ecommerce.jpg";
 import imgEducation from "../assets/images/industry-education.jpg";
 import imgLogistics from "../assets/images/industry-logistics.jpg";
+import imgFinance from "../assets/images/industry-finance.jpg";
 
 /* ============ SECTIONS ============ */
 import Testimonials from "../components/home/Testimonials";
@@ -65,8 +68,15 @@ const industries = [
   [ShoppingBag, "E-commerce", imgEcommerce],
   [GraduationCap, "Education", imgEducation],
   [Truck, "Logistics", imgLogistics],
+  [BarChart3, "Finance & Banking", imgFinance],
 ];
 
+const industryCarouselItems = industries.map(([Icon, name, img]) => ({
+  src: img,
+  alt: `${name} industry solutions`,
+  title: name,
+  Icon,
+}));
 const steps = [
   ["Discovery", "Understand your goals and requirements.", Search],
   ["Design", "Create modern and user-focused designs.", PenTool],
@@ -85,6 +95,20 @@ const softEdge = {
 };
 
 export default function Home() {
+
+  const carouselWrapRef = useRef(null);
+
+const triggerCarouselStep = (delta) => {
+  const region = carouselWrapRef.current?.querySelector(
+    '[role="region"][aria-roledescription="carousel"]'
+  );
+  if (!region) return;
+  const key = delta > 0 ? "ArrowRight" : "ArrowLeft";
+  region.focus();
+  region.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }));
+};
+
+
   return (
     <div className="font-sans text-ink bg-bg overflow-x-hidden">
 
@@ -214,14 +238,13 @@ export default function Home() {
               <h2 className="text-[26px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink">
                 Complete Digital Solutions<br className="hidden sm:block" /> Under One Roof
               </h2>
+              <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px] lg:max-w-[540px] mt-4">
+  From websites to marketing and AI automation, we provide
+  end-to-end solutions to help your business grow in the digital world.
+</p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-              <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px]">
-                From websites to marketing and AI automation, we provide
-                end-to-end solutions to help your business grow in the digital world.
-              </p>
-
               <Link
                 to="/services"
                 className="inline-flex items-center gap-2 text-[15px] font-semibold text-primary whitespace-nowrap"
@@ -266,55 +289,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= INDUSTRIES ================= */}
-     
-        <section className="py-10 sm:py-12 lg:py-14">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
-                Industries We Serve
-              </div>
-              {/* Single line from sm up; wraps on very small screens */}
-              <h2 className="text-[26px] sm:text-[34px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink sm:whitespace-nowrap">
-                Solutions for Every Industry
-              </h2>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-              <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px]">
-                We understand that every industry has unique challenges. Our
-                tailored solutions help businesses across various industries grow and succeed.
-              </p>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 text-[15px] font-semibold text-primary whitespace-nowrap"
-              >
-                View All Industries <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
-            {industries.map(([I, n, img]) => (
-              <Link
-                key={n}
-                to="/services"
-                className="relative w-full h-[110px] sm:h-[124px] rounded-xl overflow-hidden bg-cover bg-center shadow-[0_10px_24px_rgba(0,0,0,.18)] before:absolute before:inset-0 before:bg-gradient-to-b before:from-black/5 before:to-black/70 last:col-span-2 sm:last:col-span-1"
-                style={{ backgroundImage: `url(${img})` }}
-              >
-                <div className="absolute left-2.5 right-2.5 bottom-2.5 flex items-center gap-1.5 text-white text-[11px] font-semibold leading-tight">
-                  <span className="w-6 h-6 rounded-md bg-white text-navy grid place-items-center shrink-0">
-                    <I size={13} />
-                  </span>
-                  <span className="flex-1 truncate">{n}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+    {/* ================= INDUSTRIES (3D circular carousel) ================= */}
+<section className="pt-10 sm:pt-12 lg:pt-14 pb-0 lg:pb-14">
+  <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-10">
+    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-8 mb-8">
+      <div>
+        <div className="flex items-center gap-2 text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
+          Industries We Serve
         </div>
-      </section>
+        <h2 className="text-[26px] sm:text-[34px] lg:text-[40px] font-extrabold leading-[1.15] mt-3 text-ink sm:whitespace-nowrap">
+          Solutions for Every Industry
+        </h2>
+        <p className="text-[14px] sm:text-[15px] leading-[1.7] text-muted max-w-[360px] lg:max-w-[540px] mt-4">
+          We understand that every industry has unique challenges. Our
+          tailored solutions help businesses across various industries grow and succeed.
+        </p>
+      </div>
 
+    <div className="flex items-center gap-4 sm:gap-6">
+  <Link
+    to="/services"
+    className="inline-flex items-center gap-2 text-[15px] font-semibold text-primary whitespace-nowrap"
+  >
+    View All Industries <ArrowRight size={16} />
+  </Link>
+</div>
+    </div>
+
+   <div
+  ref={carouselWrapRef}
+ className="relative w-full h-[420px] sm:h-[520px] lg:h-[600px] -mb-52 sm:-mb-60 md:-mb-40 lg:-mb-42"
+>
+  <CircularCarousel
+    items={industryCarouselItems}
+    preset="cylinder"
+    intro="rise"
+    cardWidth={360}
+    aspectRatio={1.05}
+    gap={40}
+    tilt={-6}
+    curve={0}
+    perspective={1500}
+    autoplay="drift"
+    speed={12}
+    interval={3}
+    direction="left"
+    momentum={0.6}
+    snap
+    pauseOnHover
+    focusOnClick
+    draggable
+    parallax={0.3}
+    stretch={0.5}
+    depthFade={0.55}
+    fadeColor="#0f1f3d"
+    innerShade={0.6}
+    cornerRadius={6}
+    captions={false}
+    onItemClick={() => { window.location.href = "/services"; }}
+  />
+</div>
+  </div>
+</section>
       {/* ================= CASE STUDY ================= */}
      
         <section className="py-10 sm:py-12 lg:py-14">
