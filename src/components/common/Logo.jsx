@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
+import logoImg from "../../assets/images/logo.png";
 
 export default function Logo({ variant = "dark" }) {
-  const text = variant === "light" ? "text-white" : "text-ink";
   return (
     <Link
       to="/"
-      className={`flex items-center gap-3 font-display text-[28px] font-semibold ${text}`}
+      aria-label="Code Axis Tech — home"
+      className="inline-flex items-center"
     >
-      <i className="w-[38px] h-[38px] rounded-full bg-[conic-gradient(var(--color-pink),var(--color-violet),var(--color-primary),var(--color-pink))]" />
-      Code <span className="text-accent">Axis</span> Tech
+      <img
+        src={logoImg}
+        alt="Code Axis Tech logo"
+        className={`w-auto object-contain ${variant === "light" ? "h-24 sm:h-32" : "h-14 sm:h-20"}`}
+        loading="eager"
+        decoding="async"
+      />
     </Link>
   );
 }

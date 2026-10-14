@@ -36,6 +36,14 @@ function Photo({ name, alt, fit = "object-cover object-top", eager = false }) {
   );
 }
 
+/* ============ SEO CONFIG (keep in sync with Home.jsx) ============ */
+const SITE_URL = "https://www.yourdomain.com"; // TODO: replace with your real domain (no trailing slash)
+const SITE_NAME = "Code Axis Tech";
+const SITE_LOGO = `${SITE_URL}/logo.png`;      // TODO: replace with your real logo URL
+const SOCIAL_LINKS = [
+  // TODO: add your real profile URLs, e.g. "https://www.linkedin.com/company/your-company"
+];
+
 /* ---------------- DATA (edit freely) ---------------- */
 const stats = [
   { icon: Award, value: "8+", label: "Years of Experience" },
@@ -91,6 +99,52 @@ const founder = {
   role: "Founder & CEO, Code Axis Tech",
 };
 
+/* ============ SCHEMA MARKUP (JSON-LD) ============ */
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: SITE_LOGO },
+      foundingDate: journey[0].year,
+      founder: { "@id": `${SITE_URL}/about#founder` },
+      description:
+        "Code Axis Tech is a global technology partner helping businesses turn innovative ideas into solutions that create lasting value.",
+      ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS }),
+    },
+    {
+      "@type": "AboutPage",
+      "@id": `${SITE_URL}/about#webpage`,
+      url: `${SITE_URL}/about`,
+      name: `About ${SITE_NAME}`,
+      description:
+        "Learn about Code Axis Tech: our story, mission, vision, values, founder and team.",
+      isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: SITE_URL, name: SITE_NAME },
+      about: { "@id": `${SITE_URL}/#organization` },
+      mainEntity: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/about#founder`,
+      name: founder.name,
+      jobTitle: "Founder & CEO",
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+    },
+    ...team
+      .filter((m) => (m.n ?? m.name) && (m.n ?? m.name) !== founder.name)
+      .map((m) => ({
+        "@type": "Person",
+        name: m.n ?? m.name,
+        jobTitle: m.r ?? m.role,
+        worksFor: { "@id": `${SITE_URL}/#organization` },
+      })),
+  ],
+};
+
 /* ---------------- SMALL HELPERS ---------------- */
 const Eyebrow = ({ children }) => (
   <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold tracking-[.1em] uppercase text-primary before:content-[''] before:w-3.5 before:h-0.5 before:bg-primary">
@@ -128,6 +182,14 @@ export default function About() {
   return (
     <div className="font-sans text-ink bg-bg overflow-x-hidden">
 
+      {/* ===== SCHEMA MARKUP (JSON-LD) ===== */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aboutSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+
       {/* ===== HERO ===== */}
       <section className="relative overflow-hidden bg-gradient-to-br from-hero-1 via-hero-2 to-hero-3">
         <div aria-hidden className="absolute -left-24 top-20 w-52 h-52 rounded-full bg-primary/10 pointer-events-none" />
@@ -146,13 +208,13 @@ export default function About() {
               href="#story"
               className="inline-flex items-center gap-3 mt-6 text-[14px] font-semibold px-6 py-3.5 rounded-lg bg-navy text-white shadow-[0_8px_20px_rgba(15,31,61,.25)] hover:opacity-95 transition"
             >
-              Our Story <ArrowRight size={15} />
+              Our Story <ArrowRight size={15} aria-hidden="true" />
             </a>
           </div>
 
           <div className="relative lg:w-full xl:w-[calc(100%+40px)] xl:-mr-10 lg:-translate-y-4 lg:-translate-x-4 xl:-translate-y-6 xl:-translate-x-6">
             <div className="rounded-[22px] sm:rounded-[28px] overflow-hidden aspect-[16/11] lg:aspect-[16/11.5] shadow-[0_24px_50px_rgba(31,50,120,.18)] bg-tint-blue-bg">
-              <Photo name="about-hero" alt="Code Axis Tech office building" eager />
+              <Photo name="about-hero" alt="Code Axis Tech office building, headquarters of our web development and digital solutions team" eager />
             </div>
             <div className="absolute right-3 bottom-3 sm:right-5 sm:bottom-5 backdrop-blur-md bg-white/70 border border-white/60 rounded-xl px-4 sm:px-5 py-3 text-[12px] sm:text-[13px] leading-[1.7] text-muted shadow-[0_10px_30px_rgba(31,50,120,.12)]">
               Technology<br />People<br />Impact<br />Always
@@ -168,7 +230,7 @@ export default function About() {
           <div className="relative">
             <div className="absolute -right-3 top-5 -bottom-3 left-10 rounded-2xl bg-tint-blue-bg" aria-hidden />
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_20px_44px_rgba(31,50,120,.16)]">
-              <Photo name="our-story" alt="The Code Axis Tech team collaborating" />
+              <Photo name="our-story" alt="Code Axis Tech designers and developers collaborating around a table on a client project" />
               <div className="absolute left-1 bottom-0 sm:left-2 sm:bottom-1 max-w-[190px] sm:max-w-[215px] rounded-xl bg-white/90 backdrop-blur-md border border-white/60 px-4 sm:px-5 py-4 text-[12px] sm:text-[13px] leading-[1.6] text-ink font-medium shadow-[0_10px_30px_rgba(31,50,120,.15)]">
                 A team driven by curiosity, collaboration and real-world impact.
                 <GradLine className="w-10 mt-2.5" />
@@ -186,7 +248,7 @@ export default function About() {
               businesses across industries innovate, solve real problems and achieve lasting impact.
             </p>
             <Link to="/portfolio" className="inline-flex items-center gap-2 mt-5 text-[14px] font-semibold text-primary">
-              Our Journey <ArrowRight size={15} />
+              Our Journey <ArrowRight size={15} aria-hidden="true" />
             </Link>
           </div>
         </Container>
@@ -199,7 +261,7 @@ export default function About() {
             {stats.map(({ icon: Icon, value, label }) => (
               <div key={label} className="flex items-center gap-3 sm:gap-4 lg:justify-center lg:px-4">
                 <span className="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-full bg-white/80 text-primary grid place-items-center">
-                  <Icon size={19} strokeWidth={1.8} />
+                  <Icon size={19} strokeWidth={1.8} aria-hidden="true" />
                 </span>
                 <div>
                   <b className="block text-[22px] sm:text-[28px] font-extrabold leading-none text-ink">{value}</b>
@@ -220,7 +282,7 @@ export default function About() {
               className="flex items-center gap-4 sm:gap-6 rounded-2xl bg-gradient-to-br from-tint-blue-bg/70 to-tint-blue-bg/40 border border-border-light px-5 sm:px-8 py-8 sm:py-10 shadow-[0_10px_30px_rgba(31,50,120,.05)]"
             >
               <span className="w-14 h-14 sm:w-[68px] sm:h-[68px] shrink-0 rounded-full bg-primary/10 text-primary grid place-items-center">
-                <Icon size={26} strokeWidth={1.6} />
+                <Icon size={26} strokeWidth={1.6} aria-hidden="true" />
               </span>
               <div>
                 <div className="text-[11px] font-bold tracking-[.1em] uppercase text-primary">{label}</div>
@@ -273,7 +335,7 @@ export default function About() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.15 }}
                   >
-                    <Icon size={22} strokeWidth={1.8} />
+                    <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                   </motion.div>
                   <div className="hidden md:flex flex-col items-center">
                     <span className="h-6 border-l border-dashed border-primary" />
@@ -304,7 +366,7 @@ export default function About() {
               return (
                 <div key={v.title} className="relative overflow-hidden bg-white border border-border-light rounded-2xl px-5 sm:px-6 py-6 sm:py-7 shadow-[0_10px_30px_rgba(47,84,255,.06)] transition-transform hover:-translate-y-1.5">
                   <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary">
-                    <Icon size={20} strokeWidth={1.8} />
+                    <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
                   </span>
                   <GradLine className="w-8 my-4" />
                   <h3 className="text-lg font-extrabold text-ink">{v.title}</h3>
@@ -321,7 +383,7 @@ export default function About() {
         <Container className="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-14 items-center">
           <div className="relative">
             <div className="rounded-2xl overflow-hidden aspect-[4/4.3] shadow-[0_24px_50px_rgba(31,50,120,.16)] bg-tint-blue-bg">
-              <Photo name="founder" alt={`${founder.name}, ${founder.role}`} />
+              <Photo name="founder" alt={`Portrait of ${founder.name}, ${founder.role}`} />
             </div>
             <div className="absolute left-3 bottom-3 sm:-left-3 sm:bottom-6 max-w-[135px] sm:max-w-[150px] rounded-xl bg-gradient-to-br from-pink via-violet to-primary text-white px-3.5 sm:px-4 py-5 sm:py-6 text-[13px] sm:text-[14px] leading-[1.5] font-medium shadow-[0_16px_36px_rgba(15,31,61,.35)]">
               Leading with innovation, integrity and purpose.
@@ -358,7 +420,7 @@ export default function About() {
                   [Mail, "Email"],
                 ].map(([I, l]) => (
                   <a key={l} href="#" aria-label={`${founder.name} on ${l}`} className="w-9 h-9 rounded-lg bg-tint-blue-bg text-primary grid place-items-center hover:-translate-y-0.5 transition">
-                    <I size={15} />
+                    <I size={15} aria-hidden="true" />
                   </a>
                 ))}
               </div>
@@ -383,7 +445,7 @@ export default function About() {
               to="/contact"
               className="inline-flex items-center justify-center gap-3 shrink-0 self-start md:self-auto text-[14px] font-semibold px-6 py-3.5 rounded-lg bg-navy text-white shadow-[0_8px_20px_rgba(15,31,61,.25)] hover:opacity-95 transition"
             >
-              Meet Our Team <ArrowRight size={15} />
+              Meet Our Team <ArrowRight size={15} aria-hidden="true" />
             </Link>
           </div>
 
@@ -403,7 +465,7 @@ export default function About() {
                       <p className="text-[11px] sm:text-xs text-soft mt-0.5 truncate">{role}</p>
                     </div>
                     <a href="#" aria-label={`${name} on LinkedIn`} className="w-6 h-6 sm:w-7 sm:h-7 shrink-0 rounded-md bg-tint-blue-bg text-primary grid place-items-center">
-                      <FaLinkedinIn size={12} />
+                      <FaLinkedinIn size={12} aria-hidden="true" />
                     </a>
                   </div>
                 </article>
@@ -444,13 +506,13 @@ export default function About() {
 
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
             <div className="flex-1 w-full aspect-[4/3] lg:min-h-[320px]">
-              <Photo name="world-map" alt="World map showing Code Axis Tech's global reach" fit="object-contain" />
+              <Photo name="world-map" alt="Dotted world map showing Code Axis Tech's global reach across North America, Europe, Asia Pacific and the Middle East" fit="object-contain" />
             </div>
             <ul className="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-4 w-full sm:w-auto shrink-0">
               {regions.map(([r, RegionIcon]) => (
                 <li key={r} className="flex items-center gap-2.5 text-[13px] text-muted whitespace-nowrap">
                   <span className="w-7 h-7 rounded-full bg-tint-blue-bg text-primary grid place-items-center shrink-0">
-                    <RegionIcon size={14} />
+                    <RegionIcon size={14} aria-hidden="true" />
                   </span>
                   {r}
                 </li>
@@ -505,7 +567,7 @@ export default function About() {
               to="/contact"
               className="relative inline-flex items-center justify-center gap-3 shrink-0 bg-white text-ink text-[14px] font-semibold px-6 py-3.5 rounded-lg shadow-[0_10px_26px_rgba(0,0,0,.25)] hover:bg-white/90 transition"
             >
-              Start a Conversation <ArrowRight size={15} />
+              Start a Conversation <ArrowRight size={15} aria-hidden="true" />
             </Link>
           </div>
         </Container>

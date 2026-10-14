@@ -2,8 +2,6 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import CTA from "../components/layout/CTA";
 
-
-
 const portfolioImages = import.meta.glob(
   "../assets/images/portfolio/*.{png,jpg,jpeg,webp,svg}",
   { eager: true, import: "default" }
@@ -30,6 +28,14 @@ function Img({ name, alt, className = "" }) {
     </div>
   );
 }
+
+/* ============ SEO CONFIG (keep in sync with Home.jsx, About.jsx & Services.jsx) ============ */
+const SITE_URL = "https://www.yourdomain.com"; // TODO: replace with your real domain (no trailing slash)
+const SITE_NAME = "Code Axis Tech";
+const SITE_LOGO = `${SITE_URL}/logo.png`;      // TODO: replace with your real logo URL
+const SOCIAL_LINKS = [
+  // TODO: add your real profile URLs, e.g. "https://www.linkedin.com/company/your-company"
+];
 
 /* ------------------------------------------------------------------
    SHARED STYLES — every section uses the same vertical padding,
@@ -162,7 +168,7 @@ function FloatCard({ icon, label, className = "" }) {
 }
 
 /* Testimonial photo, or initials if the photo isn't added yet */
-function Avatar({ img, name }) {
+function Avatar({ img, name, role }) {
   const src = getImage(img);
   const initials = name
     .split(" ")
@@ -170,9 +176,17 @@ function Avatar({ img, name }) {
     .join("")
     .slice(0, 2);
   return src ? (
-    <img src={src} alt={name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover shrink-0 ring-4 ring-tint-blue-bg" />
+    <img
+      src={src}
+      alt={`${name}, ${role}`}
+      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover shrink-0 ring-4 ring-tint-blue-bg"
+    />
   ) : (
-    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shrink-0 bg-tint-blue-bg text-primary font-display font-bold text-xl flex items-center justify-center ring-4 ring-bg-alt">
+    <div
+      role="img"
+      aria-label={`${name}, ${role}`}
+      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shrink-0 bg-tint-blue-bg text-primary font-display font-bold text-xl flex items-center justify-center ring-4 ring-bg-alt"
+    >
       {initials}
     </div>
   );
@@ -291,6 +305,60 @@ const testimonials = [
   },
 ];
 
+/* ============ SCHEMA MARKUP (JSON-LD) ============ */
+const portfolioSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: SITE_LOGO },
+      ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS }),
+    },
+    {
+      "@type": ["WebPage", "CollectionPage"],
+      "@id": `${SITE_URL}/portfolio#webpage`,
+      url: `${SITE_URL}/portfolio`,
+      name: `Portfolio | ${SITE_NAME}`,
+      description:
+        "Explore Code Axis Tech's portfolio of web applications, mobile apps, e-commerce and custom digital solutions delivered for clients across industries.",
+      isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: SITE_URL, name: SITE_NAME },
+      about: { "@id": `${SITE_URL}/#organization` },
+      breadcrumb: { "@id": `${SITE_URL}/portfolio#breadcrumb` },
+      mainEntity: { "@id": `${SITE_URL}/portfolio#projectlist` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${SITE_URL}/portfolio#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Portfolio", item: `${SITE_URL}/portfolio` },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${SITE_URL}/portfolio#projectlist`,
+      name: "Portfolio Projects",
+      itemListElement: projects.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: p.title,
+          description: p.desc,
+          genre: p.badge,
+          creator: { "@id": `${SITE_URL}/#organization` },
+          // Only add url when it's a real link (a "#" placeholder is invalid in schema).
+          ...(p.url && p.url !== "#" && { url: p.url }),
+        },
+      })),
+    },
+  ],
+};
+
 /* ------------------------------------------------------------------
    PAGE
    ------------------------------------------------------------------ */
@@ -322,6 +390,14 @@ export default function Portfolio() {
 
   return (
     <>
+      {/* ============ SCHEMA MARKUP (JSON-LD) ============ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(portfolioSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+
       {/* ============ 1. HERO ============ */}
       {/* Smaller top padding than other sections so the whole hero fits on one screen */}
       <section className="relative overflow-hidden bg-linear-to-b from-hero-2 to-hero-1 pt-4 pb-16 md:pt-6 md:pb-20 lg:pt-6 lg:pb-24">
@@ -363,14 +439,14 @@ export default function Portfolio() {
             <div className="absolute inset-x-[6%] inset-y-[8%] rounded-[40px] bg-tint-blue-bg/60 blur-2xl" />
             <Img
               name="hero"
-              alt="Portfolio projects shown on laptop, tablet and phone"
+              alt={`Portfolio projects by ${SITE_NAME} shown on a laptop, tablet and phone`}
               className="relative w-full aspect-[4/3] object-contain rounded-[24px]"
             />
 
-           {/* Floating cards — adjust top / left / right / bottom % to move them */}
-<FloatCard icon="monitor" label="Web Application"     className="left-0 top-[60%]" />
-<FloatCard icon="phone"   label="Mobile Applications" className="-right-3 lg:-right-12 top-[24%]" />
-<FloatCard icon="chart"   label="Business Growth"     className="right-[16%] bottom-[2%]" />
+            {/* Floating cards — adjust top / left / right / bottom % to move them */}
+            <FloatCard icon="monitor" label="Web Application" className="left-0 top-[60%]" />
+            <FloatCard icon="phone" label="Mobile Applications" className="-right-3 lg:-right-12 top-[24%]" />
+            <FloatCard icon="chart" label="Business Growth" className="right-[16%] bottom-[2%]" />
 
             {/* "Our Work Speaks" handwritten note */}
             <div className="absolute hidden md:flex items-end gap-1 left-[22%] -bottom-2 text-ink/70 -rotate-6">
@@ -379,7 +455,15 @@ export default function Portfolio() {
                 <br />
                 Work Speaks
               </span>
-              <svg viewBox="0 0 60 30" className="w-12 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg
+                viewBox="0 0 60 30"
+                className="w-12 h-6 text-primary"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
                 <path d="M2 22c14 8 32 6 50-12" />
                 <path d="M44 8l9 1-2 9" />
               </svg>
@@ -410,8 +494,7 @@ export default function Portfolio() {
               ))}
             </div>
 
-           
-              <label className="relative w-full sm:w-56 lg:w-52 shrink-0">
+            <label className="relative w-full sm:w-56 lg:w-52 shrink-0">
               <span className="sr-only">Search projects</span>
               <input
                 type="search"
@@ -423,7 +506,10 @@ export default function Portfolio() {
                 placeholder="Search projects..."
                 className="w-full bg-surface border border-border-light rounded-full pl-4 pr-10 py-2.5 text-sm text-ink placeholder:text-soft outline-none focus:border-primary transition-colors"
               />
-              <Icon name="search" className="w-4 h-4 text-soft absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Icon
+                name="search"
+                className="w-4 h-4 text-soft absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
+              />
             </label>
           </div>
 
@@ -438,7 +524,7 @@ export default function Portfolio() {
                   <div className="relative">
                     <Img
                       name={p.img}
-                      alt={`${p.title} website`}
+                      alt={`${p.title} — ${p.badge} project by ${SITE_NAME}: ${p.desc}`}
                       className="w-full aspect-[16/10] object-cover"
                     />
                     <span className="absolute left-4 bottom-0 translate-y-1/2 bg-surface border border-border-light text-ink text-[10px] font-bold tracking-[.12em] uppercase px-3 py-1.5 rounded-full shadow-sm">
@@ -462,7 +548,7 @@ export default function Portfolio() {
                         href={p.url}
                         target="_blank"
                         rel="noreferrer"
-                        aria-label={`Open ${p.title} live site`}
+                        aria-label={`Open ${p.title} live site in a new tab`}
                         className="text-primary hover:text-navy transition-colors"
                       >
                         <Icon name="external" className="w-[18px] h-[18px]" />
@@ -522,7 +608,7 @@ export default function Portfolio() {
             <div className="absolute inset-[8%] rounded-[32px] bg-tint-blue-bg/70 blur-2xl" />
             <Img
               name="featured-case-study"
-              alt="Featured project on laptop and phone"
+              alt={`Featured case study by ${SITE_NAME} shown on a laptop and phone`}
               className="relative w-full aspect-[4/3] object-contain rounded-2xl"
             />
           </div>
@@ -553,7 +639,10 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {impactStats.map((s) => (
-              <div key={s.l} className="bg-bg-alt border border-border-light rounded-2xl shadow-xl shadow-primary/5 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+              <div
+                key={s.l}
+                className="bg-bg-alt border border-border-light rounded-2xl shadow-xl shadow-primary/5 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
+              >
                 <Icon name={s.icon} className="w-9 h-9 sm:w-10 sm:h-10 text-primary shrink-0" />
                 <div>
                   <div className="text-2xl sm:text-3xl font-extrabold text-ink font-display leading-none">{s.v}</div>
@@ -588,11 +677,11 @@ export default function Portfolio() {
               </button>
 
               <figure key={slide} className={`${CARD} flex-1 p-6 sm:p-8 flex flex-col sm:flex-row gap-5 sm:gap-6`}>
-                <Avatar img={t.img} name={t.name} />
+                <Avatar img={t.img} name={t.name} role={t.role} />
                 <div className="flex-1">
                   <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-  <path d="M7.5 6C5 6 3 8 3 10.5S5 15 7.5 15c.4 0 .8 0 1.2-.1-.5 1.6-2 2.9-3.9 3.1-.4.1-.7.4-.7.8 0 .5.4.9.9.9 3.9-.4 6.9-3.7 6.9-7.7V10.5C11.9 7.9 9.9 6 7.5 6zm9 0C14 6 12 8 12 10.5S14 15 16.5 15c.4 0 .8 0 1.2-.1-.5 1.6-2 2.9-3.9 3.1-.4.1-.7.4-.7.8 0 .5.4.9.9.9 3.9-.4 6.9-3.7 6.9-7.7V10.5C20.9 7.9 18.9 6 16.5 6z"/>
-</svg>
+                    <path d="M7.5 6C5 6 3 8 3 10.5S5 15 7.5 15c.4 0 .8 0 1.2-.1-.5 1.6-2 2.9-3.9 3.1-.4.1-.7.4-.7.8 0 .5.4.9.9.9 3.9-.4 6.9-3.7 6.9-7.7V10.5C11.9 7.9 9.9 6 7.5 6zm9 0C14 6 12 8 12 10.5S14 15 16.5 15c.4 0 .8 0 1.2-.1-.5 1.6-2 2.9-3.9 3.1-.4.1-.7.4-.7.8 0 .5.4.9.9.9 3.9-.4 6.9-3.7 6.9-7.7V10.5C20.9 7.9 18.9 6 16.5 6z" />
+                  </svg>
                   <blockquote className="mt-2 text-ink text-[15px] sm:text-base leading-relaxed">
                     {t.quote}
                   </blockquote>

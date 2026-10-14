@@ -40,6 +40,14 @@ function Img({ name, alt, className = "" }) {
   );
 }
 
+/* ============ SEO CONFIG (keep in sync with Home.jsx & About.jsx) ============ */
+const SITE_URL = "https://www.yourdomain.com"; // TODO: replace with your real domain (no trailing slash)
+const SITE_NAME = "Code Axis Tech";
+const SITE_LOGO = `${SITE_URL}/logo.png`;      // TODO: replace with your real logo URL
+const SOCIAL_LINKS = [
+  // TODO: add your real profile URLs, e.g. "https://www.linkedin.com/company/your-company"
+];
+
 /* ------------------------------------------------------------------
    COLORS — no hardcoded colors on this page. Every color comes from
    the @theme tokens in index.css (primary, navy, dark, ink, muted,
@@ -259,6 +267,59 @@ const techTabs = {
   ],
 };
 
+/* ============ SCHEMA MARKUP (JSON-LD) ============ */
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: SITE_LOGO },
+      ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS }),
+    },
+    {
+      "@type": ["WebPage", "CollectionPage"],
+      "@id": `${SITE_URL}/services#webpage`,
+      url: `${SITE_URL}/services`,
+      name: `Our Services | ${SITE_NAME}`,
+      description:
+        "Custom software development, web and mobile applications, cloud and DevOps solutions, and technology consulting to help your business grow.",
+      isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: SITE_URL, name: SITE_NAME },
+      about: { "@id": `${SITE_URL}/#organization` },
+      breadcrumb: { "@id": `${SITE_URL}/services#breadcrumb` },
+      mainEntity: { "@id": `${SITE_URL}/services#servicelist` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${SITE_URL}/services#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${SITE_URL}/services#servicelist`,
+      name: "Our Services",
+      itemListElement: serviceCards.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name: s.title,
+          serviceType: s.title,
+          description: s.desc,
+          url: `${SITE_URL}/services`,
+          provider: { "@id": `${SITE_URL}/#organization` },
+        },
+      })),
+    },
+  ],
+};
+
 /* ------------------------------------------------------------------
    PAGE
    ------------------------------------------------------------------ */
@@ -277,6 +338,14 @@ export default function Services() {
 
   return (
     <>
+      {/* ============ SCHEMA MARKUP (JSON-LD) ============ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(servicesSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+
       {/* ============ 1. HERO ============ */}
       {/* Smaller top padding than other sections so the whole hero fits on one screen */}
       <section className="relative overflow-hidden bg-linear-to-b from-hero-2 to-hero-1 pt-8 pb-16 md:pt-10 md:pb-20 lg:pt-12 lg:pb-24">
@@ -322,7 +391,7 @@ export default function Services() {
             <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 w-1/2 h-1/2 rounded-[28px] bg-primary/20" />
             <Img
               name="hero"
-              alt="Developer working on a laptop"
+              alt="Developer working on a laptop building a custom software solution at Code Axis Tech"
               className="relative w-full aspect-[4/3] lg:max-h-[440px] xl:max-h-[480px] object-cover rounded-[24px] shadow-2xl shadow-navy/20"
             />
           </div>
@@ -376,7 +445,7 @@ export default function Services() {
                 </div>
                 <Img
                   name={s.img}
-                  alt={s.title}
+                  alt={`${s.title} service illustration by ${SITE_NAME}`}
                   className="w-56 sm:w-48 md:w-56 lg:w-44 xl:w-56 h-auto object-contain self-center shrink-0 order-first sm:order-none md:order-first lg:order-none"
                 />
               </div>
@@ -511,7 +580,7 @@ export default function Services() {
                     key={t.name}
                     className={`${CARD} snap-start shrink-0 w-[104px] sm:w-[116px] py-5 px-3 flex flex-col items-center text-center`}
                   >
-                    <img src={t.logo} alt={t.name} loading="lazy" className="w-11 h-11 object-contain" />
+                    <img src={t.logo} alt={`${t.name} logo`} loading="lazy" className="w-11 h-11 object-contain" />
                     <span className="mt-3 text-xs sm:text-sm font-medium text-ink">{t.name}</span>
                   </div>
                 ))}
@@ -565,7 +634,7 @@ export default function Services() {
           <div className="relative">
             <Img
               name="team"
-              alt="Our team collaborating"
+              alt="Code Axis Tech team collaborating in a meeting to plan a client project"
               className="w-full aspect-[4/3] object-cover rounded-[24px] shadow-2xl shadow-navy/15"
             />
             <div className="absolute left-4 bottom-4 sm:left-6 sm:bottom-6 flex items-center gap-3 bg-surface/90 backdrop-blur rounded-xl px-4 py-3 shadow-lg shadow-navy/10">

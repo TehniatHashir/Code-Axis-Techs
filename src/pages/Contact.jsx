@@ -2,6 +2,14 @@ import { useState } from "react";
 import { MapPin, Mail, Phone, Clock, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import PageHero from "../components/common/PageHero";
 
+/* ============ SEO CONFIG (keep in sync with Home.jsx, About.jsx, Services.jsx & Portfolio.jsx) ============ */
+const SITE_URL = "https://www.yourdomain.com"; // TODO: replace with your real domain (no trailing slash)
+const SITE_NAME = "Code Axis Tech";
+const SITE_LOGO = `${SITE_URL}/logo.png`;      // TODO: replace with your real logo URL
+const SOCIAL_LINKS = [
+  // TODO: add your real profile URLs, e.g. "https://www.linkedin.com/company/your-company"
+];
+
 const info = [
   { Icon: MapPin, label: "Visit our location", value: "Gulberg Lahore" },
   { Icon: Mail, label: "Send us email", value: "info@codeaxistech.com" },
@@ -20,6 +28,66 @@ const empty = { name: "", email: "", phone: "", message: "", website: "" };
 const inputCls =
   "w-full px-4 py-3.5 border border-border-input rounded-lg bg-bg-alt text-[15px] font-sans text-ink placeholder:text-soft focus:outline-none focus:border-primary transition-colors";
 const labelCls = "block text-[12px] tracking-[.15em] font-semibold text-muted uppercase mb-2";
+
+/* ============ SCHEMA MARKUP (JSON-LD) ============ */
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: SITE_LOGO },
+      ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS }),
+    },
+    {
+      "@type": ["WebPage", "ContactPage"],
+      "@id": `${SITE_URL}/contact#webpage`,
+      url: `${SITE_URL}/contact`,
+      name: `Contact ${SITE_NAME}`,
+      description:
+        "Get in touch with Code Axis Tech. Call, email or visit us — we reply to all enquiries within 24 hours on business days.",
+      isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: SITE_URL, name: SITE_NAME },
+      about: { "@id": `${SITE_URL}/#organization` },
+      breadcrumb: { "@id": `${SITE_URL}/contact#breadcrumb` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${SITE_URL}/contact#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Contact", item: `${SITE_URL}/contact` },
+      ],
+    },
+    {
+      "@type": "ContactPoint",
+      "@id": `${SITE_URL}/contact#contactpoint`,
+      contactType: "Customer Service",
+      email: "info@codeaxistech.com",
+      telephone: "+923363339083",
+      availableLanguage: ["English", "Urdu"],
+      areaServed: "Worldwide",
+      hoursAvailable: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday", "Tuesday", "Wednesday", "Thursday",
+          "Friday", "Saturday", "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+    },
+    {
+      "@type": "PostalAddress",
+      "@id": `${SITE_URL}/contact#address`,
+      addressLocality: "Gulberg",
+      addressRegion: "Lahore",
+      addressCountry: "PK",
+    },
+  ],
+};
 
 export default function Contact() {
   const [form, setForm] = useState(empty);
@@ -54,6 +122,14 @@ export default function Contact() {
 
   return (
     <>
+      {/* ============ SCHEMA MARKUP (JSON-LD) ============ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(contactSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <PageHero
         tag="Contact us"
         title="Let's build something"
@@ -71,7 +147,7 @@ export default function Contact() {
                 className="flex gap-4 items-center bg-white border border-border-light rounded-xl p-6 mb-5 shadow-[0_4px_16px_rgba(47,84,255,.04)]"
               >
                 <span className="w-14 h-14 rounded-xl bg-tint-blue-bg text-tint-blue-fg grid place-items-center shrink-0">
-                  <Icon size={22} strokeWidth={1.8} />
+                  <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
                 <div>
                   <small className="block tracking-[.15em] text-muted font-semibold text-[12px] uppercase">
@@ -95,7 +171,7 @@ export default function Contact() {
             {status === "success" ? (
               <div className="flex flex-col items-center text-center py-10">
                 <span className="w-16 h-16 rounded-full bg-tint-green-bg text-tint-green-fg grid place-items-center">
-                  <CheckCircle2 size={30} />
+                  <CheckCircle2 size={30} aria-hidden="true" />
                 </span>
                 <h3 className="mt-5 text-[22px] font-bold text-ink">Message sent!</h3>
                 <p className="mt-2 text-muted max-w-[360px]">
@@ -161,7 +237,7 @@ export default function Contact() {
 
                 {status === "error" && (
                   <p role="alert" className="mt-4 flex items-start gap-2 text-sm text-tint-pink-fg">
-                    <AlertCircle size={16} className="shrink-0 mt-0.5" /> {error}
+                    <AlertCircle size={16} className="shrink-0 mt-0.5" aria-hidden="true" /> {error}
                   </p>
                 )}
 
@@ -172,7 +248,7 @@ export default function Contact() {
                 >
                   {sending ? (
                     <>
-                      <Loader2 size={18} className="animate-spin" /> Sending...
+                      <Loader2 size={18} className="animate-spin" aria-hidden="true" /> Sending...
                     </>
                   ) : (
                     "Send Message"

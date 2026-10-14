@@ -31,7 +31,7 @@ function ColumnTitle({ children }) {
 function ContactLine({ Icon, children, href }) {
   const body = (
     <>
-      <Icon size={14} className="shrink-0 mt-0.5 text-white" />
+      <Icon size={14} className="shrink-0 mt-0.5 text-white" aria-hidden="true" />
       <span className="min-w-0 break-words">{children}</span>
     </>
   );
@@ -71,9 +71,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[1.35fr_.75fr_1.05fr_.85fr_1.3fr] gap-x-8 gap-y-6 lg:gap-x-14 xl:gap-x-10">
 
           {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-1 lg:pr-4 xl:pr-0">
+          <div className="sm:col-span-2 lg:col-span-1 lg:pr-4 xl:pr-0 lg:-mt-4 xl:-mt-6">
             <Logo variant="light" />
-            <p className="text-[13px] leading-[1.65] text-footer-text-2 mt-3 max-w-[340px]">
+            <p className="text-[13px] leading-[1.65] text-footer-text-2 -mt-2 sm:-mt-3 max-w-[340px]">
               We design, develop, and market high-performing websites and digital
               solutions that help businesses grow, generate more leads, and achieve real results.
             </p>
@@ -82,10 +82,10 @@ export default function Footer() {
                 <a
                   key={label}
                   href="#"
-                  aria-label={label}
+                  aria-label={`Code Axis Tech on ${label}`}
                   className="text-white/90 hover:text-accent hover:-translate-y-0.5 transition"
                 >
-                  <Icon size={17} />
+                  <Icon size={17} aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -146,7 +146,9 @@ export default function Footer() {
                 onSubmit={submit}
                 className="h-[42px] w-full max-w-[420px] flex items-center bg-white/[.04] border border-white/15 rounded-full pl-4 pr-1"
               >
+                <label htmlFor="footer-email" className="sr-only">Your email address</label>
                 <input
+                  id="footer-email"
                   type="email"
                   required
                   placeholder="Your email address"
@@ -157,11 +159,15 @@ export default function Footer() {
                 />
                 <button
                   type="submit"
-                  aria-label="Subscribe"
+                  aria-label="Subscribe to newsletter"
                   disabled={status === "sending"}
                   className="w-9 h-9 shrink-0 rounded-full bg-white text-ink grid place-items-center hover:opacity-90 disabled:opacity-70 transition"
                 >
-                  {status === "sending" ? <Loader2 size={15} className="animate-spin" /> : <ArrowRight size={15} />}
+                  {status === "sending" ? (
+                    <Loader2 size={15} className="animate-spin" aria-hidden="true" />
+                  ) : (
+                    <ArrowRight size={15} aria-hidden="true" />
+                  )}
                 </button>
               </form>
               {msg && (
@@ -183,7 +189,7 @@ export default function Footer() {
           <span className="flex flex-wrap justify-center gap-x-3 gap-y-1">
             {legal.map((item, i) => (
               <span key={item} className="flex items-center gap-3">
-                {i > 0 && <span className="text-white/25">|</span>}
+                {i > 0 && <span className="text-white/25" aria-hidden="true">|</span>}
                 <a href="#" className="hover:text-white transition-colors">{item}</a>
               </span>
             ))}

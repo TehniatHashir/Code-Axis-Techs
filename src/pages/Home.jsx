@@ -32,6 +32,14 @@ import Testimonials from "../components/home/Testimonials";
 import Faq from "../components/home/Faq";
 import CTA from "../components/layout/CTA";
 
+/* ============ SEO CONFIG (edit these values) ============ */
+const SITE_URL = "https://www.yourdomain.com"; // TODO: replace with your real domain (no trailing slash)
+const SITE_NAME = "Code Axis Tech";
+const SITE_LOGO = `${SITE_URL}/logo.png`;      // TODO: replace with your real logo URL
+const SOCIAL_LINKS = [
+  // TODO: add your real profile URLs, e.g. "https://www.linkedin.com/company/your-company"
+];
+
 /* ============ DATA ============ */
 const features = [
   [Target, "Strategy", "First Approach"],
@@ -73,7 +81,7 @@ const industries = [
 
 const industryCarouselItems = industries.map(([Icon, name, img]) => ({
   src: img,
-  alt: `${name} industry solutions`,
+  alt: `${name} industry web development and digital solutions by ${SITE_NAME}`,
   title: name,
   Icon,
 }));
@@ -83,6 +91,58 @@ const steps = [
   ["Development", "Build with clean, scalable and secure code.", Code2],
   ["Launch & Support", "Deploy and provide ongoing support.", Rocket],
 ];
+
+/* ============ SCHEMA MARKUP (JSON-LD) ============ */
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: SITE_LOGO },
+      description:
+        "We design, develop, and market high-performing websites and applications that help businesses generate more leads, increase sales, and achieve real growth.",
+      ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS }),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: SITE_URL,
+      name: "Web Development & Digital Solutions That Grow Your Business",
+      description:
+        "Websites, UI/UX design, mobile apps, e-commerce, digital marketing and AI automation to help your business grow.",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${SITE_URL}/#services`,
+      name: "Our Services",
+      itemListElement: services.map(([, name, description], i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name,
+          description,
+          url: `${SITE_URL}/services`,
+          provider: { "@id": `${SITE_URL}/#organization` },
+        },
+      })),
+    },
+  ],
+};
 
 /* Light edge-only blend: just the borders fade, the image stays crisp */
 const softEdge = {
@@ -111,6 +171,14 @@ const triggerCarouselStep = (delta) => {
 
   return (
     <div className="font-sans text-ink bg-bg overflow-x-hidden">
+
+      {/* ================= SCHEMA MARKUP (JSON-LD) ================= */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeSchema).replace(/</g, "\\u003c"),
+        }}
+      />
 
       {/* ================= HERO ================= */}
       <section className="relative bg-gradient-to-br from-hero-1 via-hero-2 to-hero-3 lg:h-[calc(100vh-82px)] lg:min-h-[620px] lg:max-h-[820px] overflow-hidden">
@@ -174,7 +242,7 @@ const triggerCarouselStep = (delta) => {
           <div className="absolute top-[-140px] bottom-[-30px] right-[-20px] xl:right-[-40px] w-[48%] xl:w-[62%] flex items-center justify-end">
           <img
             src={heroLaptop}
-            alt="Modern web solutions dashboard"
+            alt="Laptop showing a modern website analytics dashboard built by Code Axis Tech"
             className="w-full h-auto max-h-[115%] object-contain"
             style={softEdge}
           />
@@ -185,7 +253,7 @@ const triggerCarouselStep = (delta) => {
         <div className="lg:hidden px-4 sm:px-6 pb-10">
           <img
             src={heroLaptop}
-            alt="Modern web solutions dashboard"
+            alt="Laptop showing a modern website analytics dashboard built by Code Axis Tech"
             className="w-full h-auto max-w-[520px] mx-auto"
             style={softEdge}
           />
@@ -216,8 +284,10 @@ const triggerCarouselStep = (delta) => {
               <div
                 key={`${name}-${i}`}
                 className={`flex items-center gap-2.5 shrink-0 whitespace-nowrap ${style}`}
+                /* second copy is only for the seamless loop — hide it from screen readers */
+                aria-hidden={i >= brands.length ? "true" : undefined}
               >
-                <Icon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" aria-hidden="true" focusable="false" />
                 <span>{name}</span>
               </div>
             ))}
@@ -273,14 +343,14 @@ const triggerCarouselStep = (delta) => {
                   className="group bg-white border border-border-light rounded-xl px-5 py-6 pb-12 shadow-[0_10px_28px_rgba(31,50,120,.07)] min-h-[200px] sm:min-h-[240px] flex flex-col relative transition-transform hover:-translate-y-1"
                 >
                   <div className={`w-11 h-11 rounded-[10px] grid place-items-center mb-5 ${palette}`}>
-                    <I size={20} />
+                    <I size={20} aria-hidden="true" />
                   </div>
 
                   <h3 className="text-lg font-bold leading-tight mb-2 text-ink">{t}</h3>
                   <p className="text-sm leading-[1.6] text-soft">{d}</p>
 
                   <span className="absolute right-4 bottom-4 w-6 h-6 rounded-full bg-surface-2 grid place-items-center text-ink">
-                    <ArrowRight size={12} />
+                    <ArrowRight size={12} aria-hidden="true" />
                   </span>
                 </Link>
               );
@@ -379,7 +449,7 @@ const triggerCarouselStep = (delta) => {
           <div className="relative h-[220px] sm:h-[300px] lg:h-[240px] rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(15,31,61,.22)] bg-ink">
             <img
               src={caseStudy}
-              alt="Luxury real estate platform"
+              alt="Luxury real estate website with property listings and advanced search, case study by Code Axis Tech"
               className="w-full h-full object-cover"
             />
           </div>
@@ -469,7 +539,7 @@ const triggerCarouselStep = (delta) => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: index * 0.15 }}
         >
-          <Icon size={22} strokeWidth={1.8} />
+          <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
         </motion.div>
 
         {/* dashed stem + dot */}
